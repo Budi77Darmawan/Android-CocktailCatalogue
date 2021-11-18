@@ -8,6 +8,7 @@ data class Cocktail (
     val id: String,
     val name: String,
     val image: String?,
+    val instructions: String?,
     val alcoholic: String?,
     val tags: List<String>?,
     val category: List<String>?,

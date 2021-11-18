@@ -8,12 +8,13 @@ import com.bddrmwan.cocktailcatalogue.main.core.model.Ingredient
 object DataMapper {
     fun mappingResultCocktailToListCocktail(
         data: ResultCocktailEntity
-    ): List<Cocktail> {
-        return data.drinks.map {
+    ): List<Cocktail>? {
+        return data.drinks?.map {
             Cocktail(
                 it.idDrink,
                 it.strDrink,
                 it.strDrinkThumb,
+                it.strInstructions,
                 it.strAlcoholic,
                 mappingStringToList(it.strTags),
                 mappingStringToList(it.strCategory),

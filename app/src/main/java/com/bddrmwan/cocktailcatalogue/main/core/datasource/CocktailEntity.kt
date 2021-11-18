@@ -5,7 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class ResultCocktailEntity(
-    val drinks: List<CocktailEntity>
+    val drinks: List<CocktailEntity>?
 ) : Parcelable
 
 @Parcelize
