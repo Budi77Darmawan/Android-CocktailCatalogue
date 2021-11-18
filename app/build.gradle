@@ -17,7 +17,7 @@ android {
         versionCode 1
         versionName "1.0"
 
-        def baseUrl = "www.thecocktaildb.com/api/json/v1/1/"
+        def baseUrl = "https://www.thecocktaildb.com/api/json/v1/1/"
         buildConfigField("String", "BASE_URL", "\"" + baseUrl + "\"")
         
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
