@@ -9,7 +9,8 @@
         <entry key="..\:/Users/andro/cocktail-catalogue/app/src/main/res/drawable/ic_home.xml" value="0.1796875" />
         <entry key="..\:/Users/andro/cocktail-catalogue/app/src/main/res/drawable/ic_search_black.xml" value="0.1796875" />
         <entry key="..\:/Users/andro/cocktail-catalogue/app/src/main/res/layout/activity_main_navigation.xml" value="0.4466666666666667" />
-        <entry key="..\:/Users/andro/cocktail-catalogue/app/src/main/res/layout/fragment_home.xml" value="0.4466666666666667" />
+        <entry key="..\:/Users/andro/cocktail-catalogue/app/src/main/res/layout/container_cocktail_view.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/andro/cocktail-catalogue/app/src/main/res/layout/fragment_home.xml" value="0.3969658659924147" />
         <entry key="..\:/Users/andro/cocktail-catalogue/app/src/main/res/layout/view_search_bar.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/andro/cocktail-catalogue/app/src/main/res/menu/bottom_menu.xml" value="0.16354166666666667" />
       </map>
