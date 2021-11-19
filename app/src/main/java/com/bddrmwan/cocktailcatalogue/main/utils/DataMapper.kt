@@ -3,6 +3,8 @@ package com.bddrmwan.cocktailcatalogue.main.utils
 import com.bddrmwan.cocktailcatalogue.main.core.datasource.CocktailEntity
 import com.bddrmwan.cocktailcatalogue.main.core.datasource.ResultCocktailEntity
 import com.bddrmwan.cocktailcatalogue.main.core.model.Cocktail
+import com.bddrmwan.cocktailcatalogue.main.core.model.FilterCocktail
+import com.bddrmwan.cocktailcatalogue.main.core.model.FilterEnum
 import com.bddrmwan.cocktailcatalogue.main.core.model.Ingredient
 
 object DataMapper {
@@ -20,6 +22,25 @@ object DataMapper {
                 mappingStringToList(it.strCategory),
                 mappingIngredient(it)
             )
+        }
+    }
+
+    fun mappingCategoryFilter(
+        filter: FilterEnum, data: ResultCocktailEntity
+    ): List<FilterCocktail>? {
+        return when (filter) {
+            FilterEnum.ALCOHOLIC -> {
+                data.drinks?.map { FilterCocktail(it.strAlcoholic ?: "") }
+                    ?.filterNot { str -> str.name == "" }
+            }
+            FilterEnum.GLASS -> {
+                data.drinks?.map { FilterCocktail(it.strGlass ?: "") }
+                    ?.filterNot { str -> str.name == "" }
+            }
+            FilterEnum.CATEGORY -> {
+                data.drinks?.map { FilterCocktail(it.strCategory ?: "") }
+                    ?.filterNot { str -> str.name == "" }
+            }
         }
     }
 

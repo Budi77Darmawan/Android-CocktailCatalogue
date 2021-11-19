@@ -1,4 +1,4 @@
-package com.bddrmwan.cocktailcatalogue.main.extension
+package com.bddrmwan.cocktailcatalogue.main.extensions
 
 import android.view.View
 

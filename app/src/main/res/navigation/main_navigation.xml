@@ -9,5 +9,15 @@
         android:id="@+id/homeFragment"
         android:name="com.bddrmwan.cocktailcatalogue.main.home.view.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_filterBottomSheetDialog"
+            app:destination="@id/filterBottomSheetDialog" />
+    </fragment>
+
+    <dialog
+        android:id="@+id/filterBottomSheetDialog"
+        android:name="com.bddrmwan.cocktailcatalogue.main.home.view.FilterBottomSheetDialog"
+        android:label="dialog_bottom_sheet_filter"
+        tools:layout="@layout/dialog_bottom_sheet_filter" />
 </navigation>

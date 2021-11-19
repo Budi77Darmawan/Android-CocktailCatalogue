@@ -10,8 +10,8 @@ data class ResultCocktailEntity(
 
 @Parcelize
 data class CocktailEntity(
-    val idDrink: String,
-    val strDrink: String,
+    val idDrink: String?,
+    val strDrink: String?,
     val strTags: String?,
     val strCategory: String?,
     val strAlcoholic: String?,

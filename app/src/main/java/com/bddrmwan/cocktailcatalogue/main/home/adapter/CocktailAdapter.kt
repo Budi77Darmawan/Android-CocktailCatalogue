@@ -6,8 +6,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bddrmwan.cocktailcatalogue.databinding.ContainerCocktailViewBinding
 import com.bddrmwan.cocktailcatalogue.main.core.model.Cocktail
-import com.bddrmwan.cocktailcatalogue.main.extension.getProgressDrawable
-import com.bddrmwan.cocktailcatalogue.main.extension.loadImage
+import com.bddrmwan.cocktailcatalogue.main.extensions.getProgressDrawable
+import com.bddrmwan.cocktailcatalogue.main.extensions.loadImage
 
 class CocktailAdapter(
     private val onClick: (Cocktail?) -> Unit
