@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="RoundedBottomSheetDialogThemeWhite" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/TopRounded20dp</item>
+    </style>
+
+    <style name="TopRounded20dp" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/bg_top_rounded_20dp</item>
+    </style>
+
+    <style name="CTProgressBarStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:indeterminate">true</item>
+        <item name="android:indeterminateBehavior">repeat</item>
+        <item name="android:indeterminateTint">@color/purple_500</item>
+        <item name="android:padding">20dp</item>
+    </style>
+
+</resources>
