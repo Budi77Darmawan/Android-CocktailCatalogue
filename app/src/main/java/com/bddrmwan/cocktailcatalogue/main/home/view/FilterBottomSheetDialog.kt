@@ -15,6 +15,7 @@ import com.bddrmwan.cocktailcatalogue.main.core.model.FilterCocktail
 import com.bddrmwan.cocktailcatalogue.main.core.model.FilterEnum
 import com.bddrmwan.cocktailcatalogue.main.extensions.gone
 import com.bddrmwan.cocktailcatalogue.main.extensions.setBackStackData
+import com.bddrmwan.cocktailcatalogue.main.extensions.toast
 import com.bddrmwan.cocktailcatalogue.main.extensions.visible
 import com.bddrmwan.cocktailcatalogue.main.home.adapter.CategoryFilterAdapter
 import com.bddrmwan.cocktailcatalogue.main.home.viewmodel.FilterViewModel
@@ -35,10 +36,14 @@ class FilterBottomSheetDialog : BottomSheetDialogFragment() {
     private val binding get() = _binding!!
 
     private val filterViewModel: FilterViewModel by viewModels()
+    private var defaultSelectedFilter: FilterCocktail? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setStyle(STYLE_NORMAL, R.style.RoundedBottomSheetDialogThemeWhite)
+        arguments?.let {
+            defaultSelectedFilter = FilterBottomSheetDialogArgs.fromBundle(it).selectedFilter
+        }
     }
 
     override fun onCreateView(
@@ -62,8 +67,21 @@ class FilterBottomSheetDialog : BottomSheetDialogFragment() {
         filterViewModel.getCategoryFilter(FilterEnum.ALCOHOLIC)
         filterViewModel.getCategoryFilter(FilterEnum.GLASS)
         filterViewModel.getCategoryFilter(FilterEnum.CATEGORY)
+        setupView()
         initListener()
         initSubscribeLiveData()
+    }
+
+    private fun setupView() {
+        binding.apply {
+            if (defaultSelectedFilter == null) {
+                btnClose.visible()
+                btnReset.gone()
+            } else {
+                btnClose.gone()
+                btnReset.visible()
+            }
+        }
     }
 
     private fun initListener() {
@@ -75,7 +93,16 @@ class FilterBottomSheetDialog : BottomSheetDialogFragment() {
                         Const.SELECTED_CATEGORY_FILTER,
                         it
                     )
+                } ?: run {
+                    if (defaultSelectedFilter == null) toast(getString(R.string.no_filter_selected))
+                    else findNavController().popBackStack()
                 }
+            }
+            btnReset.setOnClickListener {
+                setBackStackData(
+                    Const.RESET_CATEGORY_FILTER,
+                    true
+                )
             }
         }
     }
@@ -84,7 +111,7 @@ class FilterBottomSheetDialog : BottomSheetDialogFragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 filterViewModel.categoryFilter.collect {
-                    initRecyclerview(it)
+                    setDataRecyclerView(it)
                 }
             }
         }
@@ -97,15 +124,16 @@ class FilterBottomSheetDialog : BottomSheetDialogFragment() {
         }
     }
 
-    private fun initRecyclerview(data: MutableMap<FilterEnum, List<FilterCocktail>?>) {
+    private fun setDataRecyclerView(data: List<FilterCocktail>?) {
         binding.apply {
-            data.forEach { (filterEnum, list) ->
+            data?.groupBy { it.filterBy }?.onEach { (filterEnum, list) ->
                 val filterAdapter = CategoryFilterAdapter {
+                    defaultSelectedFilter = null
                     filterViewModel.setSelectedCategory(it)
                 }
                 val layoutManagerAdapter = FlexboxLayoutManager(requireContext(), FlexDirection.ROW)
                 layoutManagerAdapter.justifyContent = JustifyContent.FLEX_START
-
+                filterAdapter.setData(list.take(6), defaultSelectedFilter)
                 when (filterEnum) {
                     FilterEnum.ALCOHOLIC -> {
                         rvAlcoholic.adapter = filterAdapter
@@ -120,7 +148,6 @@ class FilterBottomSheetDialog : BottomSheetDialogFragment() {
                         rvCategory.layoutManager = layoutManagerAdapter
                     }
                 }
-                filterAdapter.setData(list?.take(6))
             }
         }
     }

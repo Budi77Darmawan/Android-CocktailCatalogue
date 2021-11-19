@@ -1,10 +1,7 @@
 package com.bddrmwan.cocktailcatalogue.main.modules
 
 import com.bddrmwan.cocktailcatalogue.main.core.datasource.RemoteDataSourceImpl
-import com.bddrmwan.cocktailcatalogue.main.core.repository.CocktailRepositoryImpl
-import com.bddrmwan.cocktailcatalogue.main.core.repository.FilterCocktailRepositoryImpl
-import com.bddrmwan.cocktailcatalogue.main.core.repository.ICocktailRepository
-import com.bddrmwan.cocktailcatalogue.main.core.repository.IFilterCocktailRepository
+import com.bddrmwan.cocktailcatalogue.main.core.repository.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -29,5 +26,14 @@ object RepositoryModule {
         remoteDataSource: RemoteDataSourceImpl
     ): IFilterCocktailRepository {
         return FilterCocktailRepositoryImpl(remoteDataSource)
+    }
+
+
+    @Singleton
+    @Provides
+    fun provideCocktailByFilterRepository(
+        remoteDataSource: RemoteDataSourceImpl
+    ): ICocktailByFilterRepository {
+        return CocktailByFilterRepositoryImpl(remoteDataSource)
     }
 }

@@ -1,9 +1,11 @@
 package com.bddrmwan.cocktailcatalogue.main.home.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bddrmwan.cocktailcatalogue.main.core.model.FilterCocktail
 import com.bddrmwan.cocktailcatalogue.main.core.model.FilterEnum
+import com.bddrmwan.cocktailcatalogue.main.extensions.toast
 import com.bddrmwan.cocktailcatalogue.main.home.usecase.IFilterUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
@@ -15,8 +17,8 @@ class FilterViewModel @Inject constructor(
     private val filterUseCase: IFilterUseCase
 ) : ViewModel() {
 
-    private var _categoryFilter = MutableSharedFlow<MutableMap<FilterEnum, List<FilterCocktail>?>>()
-    private var _tempCategoryFilter = mutableMapOf<FilterEnum, List<FilterCocktail>?>()
+    private var _categoryFilter = MutableSharedFlow<List<FilterCocktail>?>()
+    private var _tempCategoryFilter = mutableListOf<FilterCocktail>()
     private var _selectedCategory: FilterCocktail? = null
     private var _onLoading = MutableSharedFlow<Boolean>()
     private var numOfLoading = 0
@@ -36,23 +38,21 @@ class FilterViewModel @Inject constructor(
                 }
                 .collect {
                     stateLoading(false)
-                    _tempCategoryFilter[filter] = it
-                    _categoryFilter.emit(_tempCategoryFilter)
+                    _categoryFilter.emit(it)
+                    it?.let { res -> _tempCategoryFilter.addAll(res) }
+                    _tempCategoryFilter.distinctBy { filter -> filter.name }
                 }
         }
     }
 
     fun setSelectedCategory(filter: FilterCocktail?) {
         viewModelScope.launch {
-            filter?.let {
-                _tempCategoryFilter.onEach { (_, list) ->
-                    list?.onEach {
-                        it.isSelected = if (filter.name == it.name) {
-                            _selectedCategory = it
-                            true
-                        } else false
-
-                    }
+            filter?.let { filter ->
+                _tempCategoryFilter.onEach { temp ->
+                    if (filter.name == temp.name) {
+                        temp.isSelected = true
+                        _selectedCategory = temp
+                    } else temp.isSelected = false
                 }
                 _categoryFilter.emit(_tempCategoryFilter)
             }

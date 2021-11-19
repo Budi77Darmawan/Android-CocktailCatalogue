@@ -6,5 +6,6 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class FilterCocktail(
     val name: String?,
+    var filterBy: FilterEnum,
     var isSelected: Boolean = false
 ) : Parcelable

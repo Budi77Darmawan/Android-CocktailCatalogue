@@ -21,6 +21,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/btn_reset"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:foreground="?android:attr/selectableItemBackgroundBorderless"
+        android:paddingHorizontal="15dp"
+        android:paddingVertical="10dp"
+        android:text="@string/reset"
+        android:textColor="@color/purple_500"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/textView" />
+
     <ImageView
         android:id="@+id/btn_close"
         android:layout_width="wrap_content"
@@ -88,11 +104,11 @@
 
         <TextView
             android:id="@+id/btn_apply_filter"
-            style="@style/CT_Button_Filled_Primary"
+            style="@style/CTTextViewAsButtonFilledPrimary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="20dp"
-            android:text="@string/apply_filter"
+            android:text="@string/apply"
             android:textSize="16sp" />
 
     </LinearLayout>

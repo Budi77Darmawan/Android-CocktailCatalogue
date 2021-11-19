@@ -13,9 +13,11 @@ class CategoryFilterAdapter(
     private val onSelected: (FilterCocktail?) -> Unit
 ) : RecyclerView.Adapter<CategoryFilterAdapter.FilterViewHolder>() {
     private val listData = mutableListOf<FilterCocktail>()
+    private var defaultSelectedFilter: FilterCocktail? = null
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setData(listData: List<FilterCocktail>?) {
+    fun setData(listData: List<FilterCocktail>?, defaultSelected: FilterCocktail? = null) {
+        this.defaultSelectedFilter = defaultSelected
         this.listData.clear()
         this.listData.addAll(listData ?: listOf())
         notifyDataSetChanged()
@@ -26,7 +28,7 @@ class CategoryFilterAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
         fun setupView(category: FilterCocktail?) {
             binding.apply {
-                if (category?.isSelected == true) {
+                if (category?.isSelected == true || category?.name?.equals(defaultSelectedFilter?.name) == true) {
                     root.background = ContextCompat.getDrawable(
                         root.context,
                         R.drawable.bg_selected_rounded_blue_button
