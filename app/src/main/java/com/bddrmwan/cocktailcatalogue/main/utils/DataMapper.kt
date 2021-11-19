@@ -30,15 +30,15 @@ object DataMapper {
     ): List<FilterCocktail>? {
         return when (filter) {
             FilterEnum.ALCOHOLIC -> {
-                data.drinks?.map { FilterCocktail(it.strAlcoholic ?: "") }
+                data.drinks?.map { FilterCocktail(it.strAlcoholic ?: "", filter) }
                     ?.filterNot { str -> str.name == "" }
             }
             FilterEnum.GLASS -> {
-                data.drinks?.map { FilterCocktail(it.strGlass ?: "") }
+                data.drinks?.map { FilterCocktail(it.strGlass ?: "", filter) }
                     ?.filterNot { str -> str.name == "" }
             }
             FilterEnum.CATEGORY -> {
-                data.drinks?.map { FilterCocktail(it.strCategory ?: "") }
+                data.drinks?.map { FilterCocktail(it.strCategory ?: "", filter) }
                     ?.filterNot { str -> str.name == "" }
             }
         }

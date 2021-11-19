@@ -33,6 +33,7 @@ class HomeFragment : Fragment() {
     private val homeViewModel: HomeViewModel by viewModels()
     private var cocktailAdapter: CocktailAdapter? = null
     private var searchAdapter: CocktailAdapter? = null
+    private var selectedFilter: FilterCocktail? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,7 +47,10 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         getBackStackData<FilterCocktail>(Const.SELECTED_CATEGORY_FILTER) {
-            toast(it.name)
+            selectedFilter = it
+            it.name?.let { name ->
+                homeViewModel.searchCocktailByFilter(it.filterBy, name)
+            }
         }
 
         getCocktailByLetter()
@@ -114,8 +118,9 @@ class HomeFragment : Fragment() {
                 hideKeyboard(it)
             }
             iconFilter.setOnClickListener {
-                findNavController()
-                    .navigate(R.id.action_homeFragment_to_filterBottomSheetDialog)
+                val navigateToFilter = HomeFragmentDirections.actionHomeFragmentToFilterBottomSheetDialog()
+                navigateToFilter.selectedFilter = selectedFilter
+                findNavController().navigate(navigateToFilter)
             }
         }
     }

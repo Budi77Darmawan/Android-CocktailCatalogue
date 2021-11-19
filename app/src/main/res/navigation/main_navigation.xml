@@ -19,5 +19,11 @@
         android:id="@+id/filterBottomSheetDialog"
         android:name="com.bddrmwan.cocktailcatalogue.main.home.view.FilterBottomSheetDialog"
         android:label="dialog_bottom_sheet_filter"
-        tools:layout="@layout/dialog_bottom_sheet_filter" />
+        tools:layout="@layout/dialog_bottom_sheet_filter" >
+        <argument
+            android:name="selectedFilter"
+            app:argType="com.bddrmwan.cocktailcatalogue.main.core.model.FilterCocktail"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </dialog>
 </navigation>

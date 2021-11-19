@@ -37,4 +37,15 @@ class RemoteDataSourceImpl @Inject constructor(
             emit(response)
         }.flowOn(Dispatchers.IO)
     }
+
+    suspend fun getCocktailByFilter(filter: FilterEnum, category: String): Flow<ResultCocktailEntity> {
+        return flow {
+            val response = when (filter) {
+                FilterEnum.ALCOHOLIC -> services.getCocktailByFilter(alcoholic = category)
+                FilterEnum.GLASS -> services.getCocktailByFilter(glass = category)
+                FilterEnum.CATEGORY -> services.getCocktailByFilter(category = category)
+            }
+            emit(response)
+        }.flowOn(Dispatchers.IO)
+    }
 }

@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bddrmwan.cocktailcatalogue.main.core.model.Cocktail
-import com.bddrmwan.cocktailcatalogue.main.home.usecase.HomeUseCase
+import com.bddrmwan.cocktailcatalogue.main.core.model.FilterEnum
 import com.bddrmwan.cocktailcatalogue.main.home.usecase.IHomeUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
@@ -60,6 +60,25 @@ class HomeViewModel @Inject constructor(
         onSearch = true
         viewModelScope.launch {
             homeUseCase.getCocktailByName(name)
+                .onStart {
+                    stateLoading(true)
+                    Log.d("REQUEST", "- START")
+                }
+                .catch {
+                    stateLoading(false)
+                    Log.e("REQUEST", "- ERROR ${it.localizedMessage}")
+                }
+                .collect {
+                    stateLoading(false)
+                    Log.d("REQUEST", "- SUCCESS $it")
+                    _listCocktailByName.emit(it)
+                }
+        }
+    }
+
+    fun searchCocktailByFilter(filter: FilterEnum, category: String) {
+        viewModelScope.launch {
+            homeUseCase.getCocktailByFilter(filter, category)
                 .onStart {
                     stateLoading(true)
                     Log.d("REQUEST", "- START")

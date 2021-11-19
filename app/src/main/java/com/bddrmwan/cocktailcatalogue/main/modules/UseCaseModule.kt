@@ -1,6 +1,7 @@
 package com.bddrmwan.cocktailcatalogue.main.modules
 
 import com.bddrmwan.cocktailcatalogue.main.core.model.FilterCocktail
+import com.bddrmwan.cocktailcatalogue.main.core.repository.CocktailByFilterRepositoryImpl
 import com.bddrmwan.cocktailcatalogue.main.core.repository.CocktailRepositoryImpl
 import com.bddrmwan.cocktailcatalogue.main.core.repository.FilterCocktailRepositoryImpl
 import com.bddrmwan.cocktailcatalogue.main.home.usecase.FilterUseCase
@@ -20,9 +21,10 @@ object UseCaseModule {
     @Singleton
     @Provides
     fun provideHomeUseCase(
-        cocktailRepo: CocktailRepositoryImpl
+        cocktailRepo: CocktailRepositoryImpl,
+        cocktailFilterRepo: CocktailByFilterRepositoryImpl
     ): IHomeUseCase {
-        return HomeUseCase(cocktailRepo)
+        return HomeUseCase(cocktailRepo, cocktailFilterRepo)
     }
 
     @Singleton

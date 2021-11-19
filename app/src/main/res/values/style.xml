@@ -9,7 +9,7 @@
         <item name="android:background">@drawable/bg_top_rounded_20dp</item>
     </style>
 
-    <style name="CT_Button_Filled_Primary">
+    <style name="CTTextViewAsButtonFilledPrimary">
         <item name="android:background">@drawable/bg_rounded_primary_button</item>
         <item name="android:foreground">?android:attr/selectableItemBackgroundBorderless</item>
         <item name="android:textColor">@android:color/white</item>
