@@ -1,11 +1,11 @@
-package com.bddrmwan.cocktailcatalogue.main.home.viewmodel
+package com.bddrmwan.cocktailcatalogue.main.presentation.home.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bddrmwan.cocktailcatalogue.main.core.model.Cocktail
 import com.bddrmwan.cocktailcatalogue.main.core.model.FilterEnum
-import com.bddrmwan.cocktailcatalogue.main.home.usecase.IHomeUseCase
+import com.bddrmwan.cocktailcatalogue.main.presentation.home.usecase.IHomeUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch

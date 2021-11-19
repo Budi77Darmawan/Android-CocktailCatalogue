@@ -1,4 +1,4 @@
-package com.bddrmwan.cocktailcatalogue.main.home.usecase
+package com.bddrmwan.cocktailcatalogue.main.presentation.home.usecase
 
 import com.bddrmwan.cocktailcatalogue.main.core.model.Cocktail
 import com.bddrmwan.cocktailcatalogue.main.core.model.FilterEnum

@@ -1,4 +1,4 @@
-package com.bddrmwan.cocktailcatalogue.main.home.view
+package com.bddrmwan.cocktailcatalogue.main.presentation.home.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -17,8 +17,8 @@ import com.bddrmwan.cocktailcatalogue.main.extensions.gone
 import com.bddrmwan.cocktailcatalogue.main.extensions.setBackStackData
 import com.bddrmwan.cocktailcatalogue.main.extensions.toast
 import com.bddrmwan.cocktailcatalogue.main.extensions.visible
-import com.bddrmwan.cocktailcatalogue.main.home.adapter.CategoryFilterAdapter
-import com.bddrmwan.cocktailcatalogue.main.home.viewmodel.FilterViewModel
+import com.bddrmwan.cocktailcatalogue.main.presentation.home.adapter.CategoryFilterAdapter
+import com.bddrmwan.cocktailcatalogue.main.presentation.home.viewmodel.FilterViewModel
 import com.bddrmwan.cocktailcatalogue.main.utils.Const
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager

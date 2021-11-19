@@ -1,4 +1,4 @@
-package com.bddrmwan.cocktailcatalogue.main.home.view
+package com.bddrmwan.cocktailcatalogue.main.presentation.home.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -14,13 +14,12 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bddrmwan.cocktailcatalogue.R
 import com.bddrmwan.cocktailcatalogue.databinding.FragmentHomeBinding
 import com.bddrmwan.cocktailcatalogue.main.core.model.FilterCocktail
 import com.bddrmwan.cocktailcatalogue.main.extensions.*
 import dagger.hilt.android.AndroidEntryPoint
-import com.bddrmwan.cocktailcatalogue.main.home.adapter.CocktailAdapter
-import com.bddrmwan.cocktailcatalogue.main.home.viewmodel.HomeViewModel
+import com.bddrmwan.cocktailcatalogue.main.presentation.home.adapter.CocktailAdapter
+import com.bddrmwan.cocktailcatalogue.main.presentation.home.viewmodel.HomeViewModel
 import com.bddrmwan.cocktailcatalogue.main.utils.Const
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch

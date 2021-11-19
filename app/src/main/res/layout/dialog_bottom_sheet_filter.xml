@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:paddingTop="15dp"
     android:paddingBottom="10dp"
-    tools:context=".main.home.view.FilterBottomSheetDialog">
+    tools:context=".main.presentation.home.view.FilterBottomSheetDialog">
 
     <TextView
         android:id="@+id/textView"

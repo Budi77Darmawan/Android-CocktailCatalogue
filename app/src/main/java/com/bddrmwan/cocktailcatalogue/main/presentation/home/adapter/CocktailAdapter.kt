@@ -1,4 +1,4 @@
-package com.bddrmwan.cocktailcatalogue.main.home.adapter
+package com.bddrmwan.cocktailcatalogue.main.presentation.home.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
