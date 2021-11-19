@@ -15,6 +15,7 @@ import com.bddrmwan.cocktailcatalogue.main.core.model.FilterCocktail
 import com.bddrmwan.cocktailcatalogue.main.core.model.FilterEnum
 import com.bddrmwan.cocktailcatalogue.main.extensions.gone
 import com.bddrmwan.cocktailcatalogue.main.extensions.setBackStackData
+import com.bddrmwan.cocktailcatalogue.main.extensions.toast
 import com.bddrmwan.cocktailcatalogue.main.extensions.visible
 import com.bddrmwan.cocktailcatalogue.main.home.adapter.CategoryFilterAdapter
 import com.bddrmwan.cocktailcatalogue.main.home.viewmodel.FilterViewModel
@@ -66,8 +67,21 @@ class FilterBottomSheetDialog : BottomSheetDialogFragment() {
         filterViewModel.getCategoryFilter(FilterEnum.ALCOHOLIC)
         filterViewModel.getCategoryFilter(FilterEnum.GLASS)
         filterViewModel.getCategoryFilter(FilterEnum.CATEGORY)
+        setupView()
         initListener()
         initSubscribeLiveData()
+    }
+
+    private fun setupView() {
+        binding.apply {
+            if (defaultSelectedFilter == null) {
+                btnClose.visible()
+                btnReset.gone()
+            } else {
+                btnClose.gone()
+                btnReset.visible()
+            }
+        }
     }
 
     private fun initListener() {
@@ -79,7 +93,16 @@ class FilterBottomSheetDialog : BottomSheetDialogFragment() {
                         Const.SELECTED_CATEGORY_FILTER,
                         it
                     )
+                } ?: run {
+                    if (defaultSelectedFilter == null) toast(getString(R.string.no_filter_selected))
+                    else findNavController().popBackStack()
                 }
+            }
+            btnReset.setOnClickListener {
+                setBackStackData(
+                    Const.RESET_CATEGORY_FILTER,
+                    true
+                )
             }
         }
     }

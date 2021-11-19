@@ -46,17 +46,26 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        getCocktailByLetter()
+        initGetBackStackData()
+        initSearchBarView()
+        initCocktailRecyclerView()
+        initSubscribeLiveData()
+    }
+
+    private fun initGetBackStackData() {
         getBackStackData<FilterCocktail>(Const.SELECTED_CATEGORY_FILTER) {
             selectedFilter = it
             it.name?.let { name ->
                 homeViewModel.searchCocktailByFilter(it.filterBy, name)
             }
         }
-
-        getCocktailByLetter()
-        initSearchBarView()
-        initCocktailRecyclerView()
-        initSubscribeLiveData()
+        getBackStackData<Boolean>(Const.RESET_CATEGORY_FILTER) {
+            if (it) {
+                selectedFilter = null
+                binding.rvCocktail.adapter = cocktailAdapter
+            }
+        }
     }
 
     private fun initSubscribeLiveData() {
