@@ -6,6 +6,7 @@
         <entry key="..\:/Users/andro/cocktail-catalogue/app/src/main/res/drawable-v24/bg_rounded_primary_button.xml" value="0.1796875" />
         <entry key="..\:/Users/andro/cocktail-catalogue/app/src/main/res/drawable-v24/bg_unselected_rounded_blue_button.xml" value="0.1796875" />
         <entry key="..\:/Users/andro/cocktail-catalogue/app/src/main/res/drawable-v24/ic_cancel_search.xml" value="0.1796875" />
+        <entry key="..\:/Users/andro/cocktail-catalogue/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1796875" />
         <entry key="..\:/Users/andro/cocktail-catalogue/app/src/main/res/drawable/bg_rounded_primary_button.xml" value="0.1796875" />
         <entry key="..\:/Users/andro/cocktail-catalogue/app/src/main/res/drawable/bg_search_bar.xml" value="0.1796875" />
         <entry key="..\:/Users/andro/cocktail-catalogue/app/src/main/res/drawable/bg_selected_rounded_blue_button.xml" value="0.1796875" />
@@ -13,6 +14,7 @@
         <entry key="..\:/Users/andro/cocktail-catalogue/app/src/main/res/drawable/ic_cancel_search.xml" value="0.1796875" />
         <entry key="..\:/Users/andro/cocktail-catalogue/app/src/main/res/drawable/ic_close_gray.xml" value="0.1796875" />
         <entry key="..\:/Users/andro/cocktail-catalogue/app/src/main/res/drawable/ic_home.xml" value="0.1796875" />
+        <entry key="..\:/Users/andro/cocktail-catalogue/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1796875" />
         <entry key="..\:/Users/andro/cocktail-catalogue/app/src/main/res/drawable/ic_search_black.xml" value="0.1796875" />
         <entry key="..\:/Users/andro/cocktail-catalogue/app/src/main/res/layout/activity_main_navigation.xml" value="0.22" />
         <entry key="..\:/Users/andro/cocktail-catalogue/app/src/main/res/layout/container_category_filter.xml" value="0.4466666666666667" />
@@ -21,6 +23,7 @@
         <entry key="..\:/Users/andro/cocktail-catalogue/app/src/main/res/layout/fragment_home.xml" value="0.3969658659924147" />
         <entry key="..\:/Users/andro/cocktail-catalogue/app/src/main/res/layout/view_search_bar.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/andro/cocktail-catalogue/app/src/main/res/menu/bottom_menu.xml" value="0.16354166666666667" />
+        <entry key="..\:/Users/andro/cocktail-catalogue/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1796875" />
       </map>
     </option>
   </component>
