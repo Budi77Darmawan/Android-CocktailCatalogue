@@ -18,4 +18,11 @@ interface CocktailServices {
         @Query("c") category: String? = null,
         @Query("g") glass: String? = null
     )
+
+    @GET("list.php")
+    suspend fun getCategoryFilter(
+        @Query("a") alcoholic: String? = null,
+        @Query("c") category: String? = null,
+        @Query("g") glass: String? = null
+    ): ResultCocktailEntity
 }

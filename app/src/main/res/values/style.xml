@@ -9,6 +9,17 @@
         <item name="android:background">@drawable/bg_top_rounded_20dp</item>
     </style>
 
+    <style name="CT_Button_Filled_Primary">
+        <item name="android:background">@drawable/bg_rounded_primary_button</item>
+        <item name="android:foreground">?android:attr/selectableItemBackgroundBorderless</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="CTProgressBarStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>

@@ -1,6 +1,5 @@
 package com.bddrmwan.cocktailcatalogue.main.core.repository
 
-import android.util.Log
 import com.bddrmwan.cocktailcatalogue.main.core.datasource.RemoteDataSourceImpl
 import com.bddrmwan.cocktailcatalogue.main.core.model.Cocktail
 import com.bddrmwan.cocktailcatalogue.main.utils.DataMapper

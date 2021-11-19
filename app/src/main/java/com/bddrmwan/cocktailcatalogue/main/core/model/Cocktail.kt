@@ -5,8 +5,8 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Cocktail (
-    val id: String,
-    val name: String,
+    val id: String?,
+    val name: String?,
     val image: String?,
     val instructions: String?,
     val alcoholic: String?,

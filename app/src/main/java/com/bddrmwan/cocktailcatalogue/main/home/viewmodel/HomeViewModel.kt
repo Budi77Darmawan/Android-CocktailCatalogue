@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bddrmwan.cocktailcatalogue.main.core.model.Cocktail
 import com.bddrmwan.cocktailcatalogue.main.home.usecase.HomeUseCase
+import com.bddrmwan.cocktailcatalogue.main.home.usecase.IHomeUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -12,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val homeUseCase: HomeUseCase
+    private val homeUseCase: IHomeUseCase
 ) : ViewModel() {
 
     private var _listCocktail = MutableSharedFlow<List<Cocktail>>()

@@ -16,13 +16,12 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bddrmwan.cocktailcatalogue.R
 import com.bddrmwan.cocktailcatalogue.databinding.FragmentHomeBinding
-import com.bddrmwan.cocktailcatalogue.main.extension.gone
-import com.bddrmwan.cocktailcatalogue.main.extension.hideKeyboard
-import com.bddrmwan.cocktailcatalogue.main.extension.toast
-import com.bddrmwan.cocktailcatalogue.main.extension.visible
+import com.bddrmwan.cocktailcatalogue.main.core.model.FilterCocktail
+import com.bddrmwan.cocktailcatalogue.main.extensions.*
 import dagger.hilt.android.AndroidEntryPoint
 import com.bddrmwan.cocktailcatalogue.main.home.adapter.CocktailAdapter
 import com.bddrmwan.cocktailcatalogue.main.home.viewmodel.HomeViewModel
+import com.bddrmwan.cocktailcatalogue.main.utils.Const
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -44,6 +43,10 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        getBackStackData<FilterCocktail>(Const.SELECTED_CATEGORY_FILTER) {
+            toast(it.name)
+        }
 
         getCocktailByLetter()
         initSearchBarView()
