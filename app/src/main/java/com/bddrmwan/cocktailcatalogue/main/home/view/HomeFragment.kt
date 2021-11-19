@@ -31,7 +31,8 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val homeViewModel: HomeViewModel by viewModels()
-    private var adapterCocktail: CocktailAdapter? = null
+    private var cocktailAdapter: CocktailAdapter? = null
+    private var searchAdapter: CocktailAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -58,7 +59,7 @@ class HomeFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 homeViewModel.listCocktail.collect {
-                    adapterCocktail?.addData(it)
+                    cocktailAdapter?.addData(it)
                 }
             }
         }
@@ -66,11 +67,14 @@ class HomeFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 homeViewModel.listCocktailByName.collect {
+                    setSearchCocktailAdapter()
+                    searchAdapter?.setData(it ?: listOf())
                     if (it.isNullOrEmpty()) {
                         val query = binding.searchBar.inputSearch.text.toString().trim()
-                        if (query.isNotEmpty()) toast("\"${query}\" not found!")
+                        if (query.isNotEmpty()) {
+                            toast("\"${query}\" not found!")
+                        }
                     }
-                    else adapterCocktail?.setData(it)
                 }
             }
         }
@@ -88,24 +92,25 @@ class HomeFragment : Fragment() {
         binding.searchBar.apply {
             inputSearch.doAfterTextChanged {
                 if (it?.isEmpty() == true) {
-                    homeViewModel.clearSearchBar()
+                    homeViewModel.stateSearchBar(false)
+                    binding.rvCocktail.adapter = cocktailAdapter
                     iconCancelSearch.gone()
-                }
-                else iconCancelSearch.visible()
+                } else iconCancelSearch.visible()
             }
             inputSearch.setOnEditorActionListener { _, actionId, _ ->
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    homeViewModel.searchCocktailByName(inputSearch.text.toString().trim())
                     inputSearch.clearFocus()
+                    homeViewModel.searchCocktailByName(inputSearch.text.toString().trim())
                     hideKeyboard(this.inputSearch)
                     true
                 } else false
             }
             iconCancelSearch.setOnClickListener {
-                homeViewModel.clearSearchBar()
+                homeViewModel.stateSearchBar(false)
+                binding.rvCocktail.adapter = cocktailAdapter
+                iconCancelSearch.gone()
                 inputSearch.text?.clear()
                 inputSearch.clearFocus()
-                iconCancelSearch.gone()
                 hideKeyboard(it)
             }
             iconFilter.setOnClickListener {
@@ -115,14 +120,26 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun initCocktailRecyclerView() {
-        adapterCocktail = CocktailAdapter {
+    private fun setCocktailAdapter() {
+        cocktailAdapter = CocktailAdapter {
             toast(it?.name)
         }
+        binding.rvCocktail.adapter = cocktailAdapter
+    }
+
+
+    private fun setSearchCocktailAdapter() {
+        searchAdapter = CocktailAdapter {
+            toast(it?.name)
+        }
+        binding.rvCocktail.adapter = searchAdapter
+    }
+
+    private fun initCocktailRecyclerView() {
+        setCocktailAdapter()
         val layoutManagerCocktail =
             GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
         binding.rvCocktail.apply {
-            adapter = adapterCocktail
             layoutManager = layoutManagerCocktail
 
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -150,8 +167,7 @@ class HomeFragment : Fragment() {
         if (visible) {
             binding.rvCocktail.gone()
             binding.progressCircular.visible()
-        }
-        else {
+        } else {
             binding.rvCocktail.visible()
             binding.progressCircular.gone()
         }

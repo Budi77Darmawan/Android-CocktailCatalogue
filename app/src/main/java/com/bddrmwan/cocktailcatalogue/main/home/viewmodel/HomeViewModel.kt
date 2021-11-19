@@ -76,13 +76,8 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun clearSearchBar() {
-        onSearch = false
-        letter = 'a'
-        viewModelScope.launch {
-            _listCocktailByName.emit(null)
-            getCocktailByLetter()
-        }
+    fun stateSearchBar(onSearch: Boolean) {
+        this.onSearch = onSearch
     }
 
     private fun checkStateRequest(letter: Char): Boolean {
