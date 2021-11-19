@@ -10,4 +10,5 @@
     <string name="glass">Glass</string>
     <string name="category">Category</string>
     <string name="apply">Apply</string>
+    <string name="press_back_again">Press back again to exit</string>
 </resources>
