@@ -10,8 +10,9 @@ data class Cocktail (
     val image: String?,
     val instructions: String?,
     val alcoholic: String?,
+    val glass: String?,
+    val category: String?,
     val tags: List<String>?,
-    val category: List<String>?,
     val ingredient: List<Ingredient>?,
 ): Parcelable
 

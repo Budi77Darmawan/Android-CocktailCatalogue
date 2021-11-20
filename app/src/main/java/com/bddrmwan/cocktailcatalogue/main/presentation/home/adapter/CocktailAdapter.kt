@@ -6,6 +6,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bddrmwan.cocktailcatalogue.databinding.ContainerCocktailViewBinding
 import com.bddrmwan.cocktailcatalogue.main.core.model.Cocktail
+import com.bddrmwan.cocktailcatalogue.main.core.model.FilterCocktail
+import com.bddrmwan.cocktailcatalogue.main.core.model.FilterEnum
 import com.bddrmwan.cocktailcatalogue.main.extensions.getProgressDrawable
 import com.bddrmwan.cocktailcatalogue.main.extensions.loadImage
 
@@ -13,8 +15,10 @@ class CocktailAdapter(
     private val onClick: (Cocktail?) -> Unit
 ) : RecyclerView.Adapter<CocktailAdapter.CocktailViewHolder>() {
     private val listData = mutableListOf<Cocktail>()
+    private var selectedFilter: FilterCocktail? = null
 
-    fun setData(listData: List<Cocktail>) {
+    fun setData(listData: List<Cocktail>, selectedFilter: FilterCocktail?) {
+        this.selectedFilter = selectedFilter
         this.listData.clear()
         addData(listData)
     }
@@ -30,7 +34,9 @@ class CocktailAdapter(
         fun setupView(cocktail: Cocktail?) {
             binding.apply {
                 tvCocktailName.text = cocktail?.name
-                tvInstructionCocktail.text = cocktail?.instructions
+                if (selectedFilter == null) tvInstructionCocktail.text = cocktail?.instructions
+                else tvInstructionCocktail.text = selectedFilter?.name
+
                 imgCocktail.loadImage(
                     cocktail?.image,
                     getProgressDrawable(root.context)

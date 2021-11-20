@@ -56,6 +56,8 @@ class HomeFragment : Fragment() {
         getBackStackData<FilterCocktail>(Const.SELECTED_CATEGORY_FILTER) {
             selectedFilter = it
             it.name?.let { name ->
+                binding.searchBar.inputSearch.text?.clear()
+                binding.searchBar.iconCancelSearch.gone()
                 homeViewModel.searchCocktailByFilter(it.filterBy, name)
             }
         }
@@ -80,7 +82,7 @@ class HomeFragment : Fragment() {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 homeViewModel.listCocktailByName.collect {
                     setSearchCocktailAdapter()
-                    searchAdapter?.setData(it ?: listOf())
+                    searchAdapter?.setData(it ?: listOf(), selectedFilter)
                     if (it.isNullOrEmpty()) {
                         val query = binding.searchBar.inputSearch.text.toString().trim()
                         if (query.isNotEmpty()) {
@@ -111,6 +113,7 @@ class HomeFragment : Fragment() {
             }
             inputSearch.setOnEditorActionListener { _, actionId, _ ->
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    selectedFilter = null
                     inputSearch.clearFocus()
                     homeViewModel.searchCocktailByName(inputSearch.text.toString().trim())
                     hideKeyboard(this.inputSearch)
