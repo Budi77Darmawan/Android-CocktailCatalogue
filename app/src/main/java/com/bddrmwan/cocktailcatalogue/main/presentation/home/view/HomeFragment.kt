@@ -165,7 +165,9 @@ class HomeFragment : Fragment() {
     }
 
     private fun navigateToDetail(cocktail: Cocktail?) {
-        toast(cocktail?.name)
+        val toDetail = HomeFragmentDirections.actionHomeFragmentToDetailFragment()
+        toDetail.detailCocktail = cocktail
+        findNavController().navigate(toDetail)
     }
 
     private fun setCocktailAdapter() {

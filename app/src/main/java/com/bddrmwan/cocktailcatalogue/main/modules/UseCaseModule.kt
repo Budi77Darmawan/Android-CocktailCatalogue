@@ -3,6 +3,8 @@ package com.bddrmwan.cocktailcatalogue.main.modules
 import com.bddrmwan.cocktailcatalogue.main.core.repository.CocktailByFilterRepositoryImpl
 import com.bddrmwan.cocktailcatalogue.main.core.repository.CocktailRepositoryImpl
 import com.bddrmwan.cocktailcatalogue.main.core.repository.FilterCocktailRepositoryImpl
+import com.bddrmwan.cocktailcatalogue.main.presentation.detail.usecase.DetailUseCaseImpl
+import com.bddrmwan.cocktailcatalogue.main.presentation.detail.usecase.IDetailUseCase
 import com.bddrmwan.cocktailcatalogue.main.presentation.home.usecase.FilterUseCaseImpl
 import com.bddrmwan.cocktailcatalogue.main.presentation.home.usecase.HomeUseCaseImpl
 import com.bddrmwan.cocktailcatalogue.main.presentation.home.usecase.IFilterUseCase
@@ -33,5 +35,13 @@ object UseCaseModule {
     ): IFilterUseCase {
         return FilterUseCaseImpl(filterCocktailRepo)
     }
-    
+
+    @Singleton
+    @Provides
+    fun provideDetailUseCase(
+        cocktailRepo: CocktailRepositoryImpl
+    ): IDetailUseCase {
+        return DetailUseCaseImpl(cocktailRepo)
+    }
+
 }
