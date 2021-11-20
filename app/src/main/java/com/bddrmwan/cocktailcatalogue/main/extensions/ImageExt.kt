@@ -60,7 +60,7 @@ fun getProgressDrawable(mContext: Context): CircularProgressDrawable {
     return CircularProgressDrawable(mContext).apply {
         strokeWidth = 10f
         centerRadius = 50f
-        setColorSchemeColors(ContextCompat.getColor(mContext, R.color.purple_200))
+        setColorSchemeColors(ContextCompat.getColor(mContext, R.color.colorSecondary))
         start()
     }
 }
