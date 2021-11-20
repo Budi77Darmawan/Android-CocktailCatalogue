@@ -10,7 +10,7 @@ interface IFilterUseCase {
     fun getCategoryFilter(filter: FilterEnum): Flow<List<FilterCocktail>?>
 }
 
-class FilterUseCase @Inject constructor(
+class FilterUseCaseImpl @Inject constructor(
     private val filterCocktailRepo: IFilterCocktailRepository
 ) : IFilterUseCase {
     override fun getCategoryFilter(filter: FilterEnum): Flow<List<FilterCocktail>?> {

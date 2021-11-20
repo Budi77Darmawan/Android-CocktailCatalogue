@@ -15,7 +15,7 @@ interface IHomeUseCase {
 }
 
 
-class HomeUseCase @Inject constructor(
+class HomeUseCaseImpl @Inject constructor(
     private val cocktailRepo: ICocktailRepository,
     private val cocktailFilterRepo: ICocktailByFilterRepository
 ) : IHomeUseCase {

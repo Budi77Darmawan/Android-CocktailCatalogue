@@ -1,6 +1,5 @@
 package com.bddrmwan.cocktailcatalogue.main.presentation.home.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bddrmwan.cocktailcatalogue.main.core.model.Cocktail
@@ -16,16 +15,18 @@ class HomeViewModel @Inject constructor(
     private val homeUseCase: IHomeUseCase
 ) : ViewModel() {
 
-    private var _listCocktail = MutableSharedFlow<List<Cocktail>>()
-    private var _listCocktailByName = MutableSharedFlow<List<Cocktail>?>()
-    private var letter: Char = 'a'
+    private var _listCocktail = MutableStateFlow<List<Cocktail>>(listOf())
+    private var _listCocktailByName = MutableStateFlow<List<Cocktail>?>(null)
+    private var _listCocktailByFilter = MutableStateFlow<List<Cocktail>?>(null)
+    private var letter = 'a'
     private var onSearch = false
     private var onRequest = false
     private var _onLoading = MutableSharedFlow<Boolean>()
 
-    val listCocktail get() = _listCocktail.asSharedFlow()
-    val listCocktailByName get() = _listCocktailByName.asSharedFlow()
-    val onLoading get() = _onLoading.asSharedFlow()
+    val listCocktail get() = _listCocktail
+    val listCocktailByName get() = _listCocktailByName
+    val listCocktailByFilter get() = _listCocktailByFilter
+    val onLoading get() = _onLoading
 
     fun getCocktailByLetter() {
         if (!checkStateRequest(letter)) {
@@ -34,20 +35,17 @@ class HomeViewModel @Inject constructor(
                 homeUseCase.getCocktailByLetter(letter.toString())
                     .onStart {
                         stateLoading(true)
-                        Log.d("REQUEST", "- START")
                     }
                     .catch {
                         onRequest = false
                         stateLoading(false)
-                        Log.e("REQUEST", "- ERROR ${it.localizedMessage}")
                     }
                     .collect {
-                        Log.d("REQUEST", "- SUCCESS $it")
                         onRequest = false
                         stateLoading(false)
                         letter++
                         it?.let { listCocktail ->
-                            _listCocktail.emit(listCocktail)
+                            _listCocktail.value += listCocktail
                         } ?: run {
                             getCocktailByLetter()
                         }
@@ -62,16 +60,26 @@ class HomeViewModel @Inject constructor(
             homeUseCase.getCocktailByName(name)
                 .onStart {
                     stateLoading(true)
-                    Log.d("REQUEST", "- START")
                 }
                 .catch {
                     stateLoading(false)
-                    Log.e("REQUEST", "- ERROR ${it.localizedMessage}")
                 }
                 .collect {
                     stateLoading(false)
-                    Log.d("REQUEST", "- SUCCESS $it")
-                    _listCocktailByName.emit(it)
+                    /**
+                     * trick to trigger the listCocktailByName variable observer
+                     * if the values before and after are the same
+                     */
+                    if (listCocktailByName.value == it) {
+                        val temp = mutableListOf<Cocktail>()
+                        it?.let { temp.addAll(it) }
+                        temp.removeLast()
+                        _listCocktailByName.value = temp
+                    }
+                    /**
+                     * end
+                     */
+                    _listCocktailByName.value = it
                 }
         }
     }
@@ -81,16 +89,13 @@ class HomeViewModel @Inject constructor(
             homeUseCase.getCocktailByFilter(filter, category)
                 .onStart {
                     stateLoading(true)
-                    Log.d("REQUEST", "- START")
                 }
                 .catch {
                     stateLoading(false)
-                    Log.e("REQUEST", "- ERROR ${it.localizedMessage}")
                 }
                 .collect {
                     stateLoading(false)
-                    Log.d("REQUEST", "- SUCCESS $it")
-                    _listCocktailByName.emit(it)
+                    _listCocktailByFilter.value = it
                 }
         }
     }

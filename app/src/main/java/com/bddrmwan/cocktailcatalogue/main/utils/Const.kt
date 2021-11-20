@@ -1,6 +1,9 @@
 package com.bddrmwan.cocktailcatalogue.main.utils
 
 object Const {
+    const val REQ_SELECTED_CATEGORY_FILTER = "REQ_SELECTED_CATEGORY_FILTER"
+    const val REQ_RESET_CATEGORY_FILTER = "REQ_RESET_CATEGORY_FILTER"
+
     const val SELECTED_CATEGORY_FILTER = "SELECTED_CATEGORY_FILTER"
     const val RESET_CATEGORY_FILTER = "RESET_CATEGORY_FILTER"
 }

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -89,20 +90,26 @@ class FilterBottomSheetDialog : BottomSheetDialogFragment() {
             btnClose.setOnClickListener { findNavController().popBackStack() }
             btnApplyFilter.setOnClickListener {
                 filterViewModel.selectedCategory?.let {
-                    setBackStackData(
-                        Const.SELECTED_CATEGORY_FILTER,
-                        it
+                    val bundle = Bundle()
+                    bundle.putParcelable(Const.SELECTED_CATEGORY_FILTER, it)
+                    setFragmentResult(
+                        Const.REQ_SELECTED_CATEGORY_FILTER,
+                        bundle
                     )
+                    findNavController().popBackStack()
                 } ?: run {
                     if (defaultSelectedFilter == null) toast(getString(R.string.no_filter_selected))
                     else findNavController().popBackStack()
                 }
             }
             btnReset.setOnClickListener {
-                setBackStackData(
-                    Const.RESET_CATEGORY_FILTER,
-                    true
+                val bundle = Bundle()
+                bundle.putBoolean(Const.RESET_CATEGORY_FILTER, true)
+                setFragmentResult(
+                    Const.REQ_RESET_CATEGORY_FILTER,
+                    bundle
                 )
+                findNavController().popBackStack()
             }
         }
     }

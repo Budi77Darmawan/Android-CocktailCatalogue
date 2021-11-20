@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bddrmwan.cocktailcatalogue.databinding.ContainerCocktailViewBinding
 import com.bddrmwan.cocktailcatalogue.main.core.model.Cocktail
 import com.bddrmwan.cocktailcatalogue.main.core.model.FilterCocktail
-import com.bddrmwan.cocktailcatalogue.main.core.model.FilterEnum
 import com.bddrmwan.cocktailcatalogue.main.extensions.getProgressDrawable
 import com.bddrmwan.cocktailcatalogue.main.extensions.loadImage
 
@@ -17,14 +16,10 @@ class CocktailAdapter(
     private val listData = mutableListOf<Cocktail>()
     private var selectedFilter: FilterCocktail? = null
 
-    fun setData(listData: List<Cocktail>, selectedFilter: FilterCocktail?) {
+    @SuppressLint("NotifyDataSetChanged")
+    fun setData(listData: List<Cocktail>, selectedFilter: FilterCocktail? = null) {
         this.selectedFilter = selectedFilter
         this.listData.clear()
-        addData(listData)
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
-    fun addData(listData: List<Cocktail>) {
         this.listData.addAll(listData)
         notifyDataSetChanged()
     }
