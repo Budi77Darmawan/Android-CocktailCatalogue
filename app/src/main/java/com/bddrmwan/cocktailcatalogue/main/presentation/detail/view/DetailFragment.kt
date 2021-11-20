@@ -1,0 +1,73 @@
+package com.bddrmwan.cocktailcatalogue.main.presentation.detail.view
+
+import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import com.bddrmwan.cocktailcatalogue.databinding.FragmentDetailBinding
+import com.bddrmwan.cocktailcatalogue.main.core.model.Cocktail
+import com.bddrmwan.cocktailcatalogue.main.extensions.toast
+import com.bddrmwan.cocktailcatalogue.main.presentation.detail.viewmodel.DetailViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
+
+@AndroidEntryPoint
+class DetailFragment : Fragment() {
+    private var _binding: FragmentDetailBinding? = null
+    private val binding get() = _binding!!
+
+    private val detailViewModel: DetailViewModel by viewModels()
+    private var cocktail: Cocktail? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            cocktail = DetailFragmentArgs.fromBundle(it).detailCocktail
+        }
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentDetailBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        cocktail?.instructions?.let {
+            setupView(cocktail)
+        } ?: run {
+            cocktail?.id?.let { id -> detailViewModel.getDetailCocktail(id) }
+        }
+
+        initSubscribeLiveData()
+    }
+
+    private fun setupView(detail: Cocktail?) {
+        binding.text.text = detail?.instructions
+    }
+
+    private fun initSubscribeLiveData() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                detailViewModel.detailCocktail.collect {
+                    toast("on Fetching Data")
+                    setupView(it)
+                }
+            }
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+}
