@@ -1,13 +1,12 @@
 package com.bddrmwan.cocktailcatalogue.main.modules
 
-import com.bddrmwan.cocktailcatalogue.main.core.model.FilterCocktail
 import com.bddrmwan.cocktailcatalogue.main.core.repository.CocktailByFilterRepositoryImpl
 import com.bddrmwan.cocktailcatalogue.main.core.repository.CocktailRepositoryImpl
 import com.bddrmwan.cocktailcatalogue.main.core.repository.FilterCocktailRepositoryImpl
-import com.bddrmwan.cocktailcatalogue.main.home.usecase.FilterUseCase
-import com.bddrmwan.cocktailcatalogue.main.home.usecase.HomeUseCase
-import com.bddrmwan.cocktailcatalogue.main.home.usecase.IFilterUseCase
-import com.bddrmwan.cocktailcatalogue.main.home.usecase.IHomeUseCase
+import com.bddrmwan.cocktailcatalogue.main.presentation.home.usecase.FilterUseCaseImpl
+import com.bddrmwan.cocktailcatalogue.main.presentation.home.usecase.HomeUseCaseImpl
+import com.bddrmwan.cocktailcatalogue.main.presentation.home.usecase.IFilterUseCase
+import com.bddrmwan.cocktailcatalogue.main.presentation.home.usecase.IHomeUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,7 +23,7 @@ object UseCaseModule {
         cocktailRepo: CocktailRepositoryImpl,
         cocktailFilterRepo: CocktailByFilterRepositoryImpl
     ): IHomeUseCase {
-        return HomeUseCase(cocktailRepo, cocktailFilterRepo)
+        return HomeUseCaseImpl(cocktailRepo, cocktailFilterRepo)
     }
 
     @Singleton
@@ -32,6 +31,7 @@ object UseCaseModule {
     fun provideFilterUseCase(
         filterCocktailRepo: FilterCocktailRepositoryImpl
     ): IFilterUseCase {
-        return FilterUseCase(filterCocktailRepo)
+        return FilterUseCaseImpl(filterCocktailRepo)
     }
+    
 }

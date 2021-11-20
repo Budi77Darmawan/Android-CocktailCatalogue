@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".main.home.view.HomeFragment">
+    tools:context=".main.presentation.home.view.HomeFragment">
 
     <include
         android:id="@+id/search_bar"
@@ -23,6 +23,7 @@
     <ProgressBar
         android:id="@+id/progress_circular"
         style="@style/CTProgressBarStyle"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

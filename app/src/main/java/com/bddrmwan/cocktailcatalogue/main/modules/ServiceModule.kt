@@ -1,7 +1,7 @@
 package com.bddrmwan.cocktailcatalogue.main.modules
 
 import com.bddrmwan.cocktailcatalogue.BuildConfig.BASE_URL
-import com.bddrmwan.cocktailcatalogue.main.services.CocktailServices
+import com.bddrmwan.cocktailcatalogue.main.core.services.CocktailServices
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

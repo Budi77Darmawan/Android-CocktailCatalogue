@@ -1,4 +1,4 @@
-package com.bddrmwan.cocktailcatalogue.main.services
+package com.bddrmwan.cocktailcatalogue.main.core.services
 
 import com.bddrmwan.cocktailcatalogue.main.core.datasource.ResultCocktailEntity
 import retrofit2.http.GET
@@ -24,5 +24,10 @@ interface CocktailServices {
         @Query("a") alcoholic: String? = null,
         @Query("c") category: String? = null,
         @Query("g") glass: String? = null
+    ): ResultCocktailEntity
+
+    @GET("lookup.php")
+    suspend fun getDetailCocktail(
+        @Query("i") id: String
     ): ResultCocktailEntity
 }

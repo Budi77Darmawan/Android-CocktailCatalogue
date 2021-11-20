@@ -1,4 +1,4 @@
-package com.bddrmwan.cocktailcatalogue.main.home.usecase
+package com.bddrmwan.cocktailcatalogue.main.presentation.home.usecase
 
 import com.bddrmwan.cocktailcatalogue.main.core.model.Cocktail
 import com.bddrmwan.cocktailcatalogue.main.core.model.FilterEnum
@@ -15,7 +15,7 @@ interface IHomeUseCase {
 }
 
 
-class HomeUseCase @Inject constructor(
+class HomeUseCaseImpl @Inject constructor(
     private val cocktailRepo: ICocktailRepository,
     private val cocktailFilterRepo: ICocktailByFilterRepository
 ) : IHomeUseCase {

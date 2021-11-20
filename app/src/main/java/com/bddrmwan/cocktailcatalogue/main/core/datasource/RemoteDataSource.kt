@@ -1,7 +1,7 @@
 package com.bddrmwan.cocktailcatalogue.main.core.datasource
 
 import com.bddrmwan.cocktailcatalogue.main.core.model.FilterEnum
-import com.bddrmwan.cocktailcatalogue.main.services.CocktailServices
+import com.bddrmwan.cocktailcatalogue.main.core.services.CocktailServices
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -45,6 +45,13 @@ class RemoteDataSourceImpl @Inject constructor(
                 FilterEnum.GLASS -> services.getCocktailByFilter(glass = category)
                 FilterEnum.CATEGORY -> services.getCocktailByFilter(category = category)
             }
+            emit(response)
+        }.flowOn(Dispatchers.IO)
+    }
+
+    suspend fun getDetailCocktail(id: String): Flow<ResultCocktailEntity> {
+        return flow {
+            val response = services.getDetailCocktail(id)
             emit(response)
         }.flowOn(Dispatchers.IO)
     }

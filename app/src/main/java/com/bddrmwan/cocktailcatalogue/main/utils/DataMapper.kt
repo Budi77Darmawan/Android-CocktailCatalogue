@@ -18,8 +18,9 @@ object DataMapper {
                 it.strDrinkThumb,
                 it.strInstructions,
                 it.strAlcoholic,
+                it.strGlass,
+                it.strCategory,
                 mappingStringToList(it.strTags),
-                mappingStringToList(it.strCategory),
                 mappingIngredient(it)
             )
         }

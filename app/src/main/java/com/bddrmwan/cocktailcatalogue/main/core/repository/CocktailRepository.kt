@@ -11,6 +11,7 @@ import javax.inject.Inject
 interface ICocktailRepository {
     fun getCocktailByName(name: String): Flow<List<Cocktail>?>
     fun getCocktailByLetter(letter: String): Flow<List<Cocktail>?>
+    fun getDetailCocktail(id: String): Flow<Cocktail?>
 }
 
 class CocktailRepositoryImpl @Inject constructor(
@@ -30,6 +31,15 @@ class CocktailRepositoryImpl @Inject constructor(
             val result = remoteDataSource.getCocktailByLetter(letter)
             result.collect {
                 emit(DataMapper.mappingResultCocktailToListCocktail(it))
+            }
+        }
+    }
+
+    override fun getDetailCocktail(id: String): Flow<Cocktail?> {
+        return flow {
+            val result = remoteDataSource.getDetailCocktail(id)
+            result.collect {
+                emit(DataMapper.mappingResultCocktailToListCocktail(it)?.getOrNull(0))
             }
         }
     }

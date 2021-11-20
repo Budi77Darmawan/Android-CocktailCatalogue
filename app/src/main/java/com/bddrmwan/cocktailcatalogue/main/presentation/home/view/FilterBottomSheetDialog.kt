@@ -1,9 +1,10 @@
-package com.bddrmwan.cocktailcatalogue.main.home.view
+package com.bddrmwan.cocktailcatalogue.main.presentation.home.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -17,8 +18,8 @@ import com.bddrmwan.cocktailcatalogue.main.extensions.gone
 import com.bddrmwan.cocktailcatalogue.main.extensions.setBackStackData
 import com.bddrmwan.cocktailcatalogue.main.extensions.toast
 import com.bddrmwan.cocktailcatalogue.main.extensions.visible
-import com.bddrmwan.cocktailcatalogue.main.home.adapter.CategoryFilterAdapter
-import com.bddrmwan.cocktailcatalogue.main.home.viewmodel.FilterViewModel
+import com.bddrmwan.cocktailcatalogue.main.presentation.home.adapter.CategoryFilterAdapter
+import com.bddrmwan.cocktailcatalogue.main.presentation.home.viewmodel.FilterViewModel
 import com.bddrmwan.cocktailcatalogue.main.utils.Const
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
@@ -89,20 +90,26 @@ class FilterBottomSheetDialog : BottomSheetDialogFragment() {
             btnClose.setOnClickListener { findNavController().popBackStack() }
             btnApplyFilter.setOnClickListener {
                 filterViewModel.selectedCategory?.let {
-                    setBackStackData(
-                        Const.SELECTED_CATEGORY_FILTER,
-                        it
+                    val bundle = Bundle()
+                    bundle.putParcelable(Const.SELECTED_CATEGORY_FILTER, it)
+                    setFragmentResult(
+                        Const.REQ_SELECTED_CATEGORY_FILTER,
+                        bundle
                     )
+                    findNavController().popBackStack()
                 } ?: run {
                     if (defaultSelectedFilter == null) toast(getString(R.string.no_filter_selected))
                     else findNavController().popBackStack()
                 }
             }
             btnReset.setOnClickListener {
-                setBackStackData(
-                    Const.RESET_CATEGORY_FILTER,
-                    true
+                val bundle = Bundle()
+                bundle.putBoolean(Const.RESET_CATEGORY_FILTER, true)
+                setFragmentResult(
+                    Const.REQ_RESET_CATEGORY_FILTER,
+                    bundle
                 )
+                findNavController().popBackStack()
             }
         }
     }
