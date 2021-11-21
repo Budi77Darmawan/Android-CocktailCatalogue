@@ -167,4 +167,9 @@
         app:tint="@color/colorPink"
         tools:ignore="ContentDescription" />
 
+    <ProgressBar
+        android:id="@+id/progress_circular"
+        style="@style/CTProgressBarStyle"
+        android:layout_gravity="center" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

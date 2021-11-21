@@ -25,9 +25,14 @@ class BookmarkFragment : BaseGridFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        bookmarkViewModel.getAllCocktailBookmarked()
         initSubscribeLiveData()
         hideIconFilter()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val query = binding.searchBar.inputSearch.text.toString().trim()
+        if (query.isEmpty()) bookmarkViewModel.getAllCocktailBookmarked()
     }
 
     private fun hideIconFilter() {

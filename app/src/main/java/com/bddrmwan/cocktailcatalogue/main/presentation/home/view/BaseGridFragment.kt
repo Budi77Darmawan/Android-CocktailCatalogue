@@ -1,20 +1,20 @@
 package com.bddrmwan.cocktailcatalogue.main.presentation.home.view
 
-import android.graphics.Rect
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.core.widget.doAfterTextChanged
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bddrmwan.cocktailcatalogue.R
 import com.bddrmwan.cocktailcatalogue.databinding.FragmentHomeBinding
 import com.bddrmwan.cocktailcatalogue.main.core.model.Cocktail
-import com.bddrmwan.cocktailcatalogue.main.extensions.*
-import com.bddrmwan.cocktailcatalogue.main.main.MainNavigationActivity
+import com.bddrmwan.cocktailcatalogue.main.extensions.gone
+import com.bddrmwan.cocktailcatalogue.main.extensions.hideKeyboard
+import com.bddrmwan.cocktailcatalogue.main.extensions.visible
 import com.bddrmwan.cocktailcatalogue.main.presentation.home.adapter.CocktailAdapter
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -47,20 +47,6 @@ abstract class BaseGridFragment : Fragment() {
 
         initSearchBarView()
         initCocktailRecyclerView()
-        initObserver()
-    }
-
-    private fun initObserver() {
-        val root = binding.root
-        val parentAct = activity as? MainNavigationActivity
-        root.viewTreeObserver.addOnGlobalLayoutListener {
-            val rec = Rect()
-            root.getWindowVisibleDisplayFrame(rec)
-            val screenHeight = root.rootView.height
-            val keypadHeight = screenHeight - rec.bottom
-            if (keypadHeight > screenHeight * 0.15) parentAct?.hideBottomNav()
-            else parentAct?.showBottomNav()
-        }
     }
 
     private fun initSearchBarView() {
@@ -117,7 +103,10 @@ abstract class BaseGridFragment : Fragment() {
         }
     }
 
-    protected fun showErrorMessage(msg: String? = getString(R.string.internal_server_error), visible: Boolean = true) {
+    protected fun showErrorMessage(
+        msg: String? = getString(R.string.internal_server_error),
+        visible: Boolean = true
+    ) {
         binding.tvErrorMessage.apply {
             text = msg
             if (visible) visible()
