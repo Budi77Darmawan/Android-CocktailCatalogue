@@ -28,6 +28,8 @@ data class Cocktail (
     val tags: List<String>?,
     @ColumnInfo(name = "ingredient")
     val ingredient: List<Ingredient>?,
+    @ColumnInfo(name = "favorite")
+    var isBookmark: Boolean = false
 ): Parcelable
 
 @Parcelize

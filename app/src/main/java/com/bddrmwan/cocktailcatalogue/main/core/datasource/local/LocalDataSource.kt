@@ -14,6 +14,7 @@ class LocalDataSourceImpl @Inject constructor(
     private val executorService: ExecutorService = Executors.newSingleThreadExecutor()
 
     fun addToBookmark(cocktail: Cocktail) {
+        cocktail.isBookmark = true
         executorService.execute {
             database.cocktailDao().addToBookmark(cocktail)
         }

@@ -14,9 +14,7 @@ import com.bddrmwan.cocktailcatalogue.R
 import com.bddrmwan.cocktailcatalogue.databinding.ContainerIngredientViewBinding
 import com.bddrmwan.cocktailcatalogue.databinding.FragmentDetailBinding
 import com.bddrmwan.cocktailcatalogue.main.core.model.Cocktail
-import com.bddrmwan.cocktailcatalogue.main.extensions.getProgressDrawable
-import com.bddrmwan.cocktailcatalogue.main.extensions.gone
-import com.bddrmwan.cocktailcatalogue.main.extensions.loadImage
+import com.bddrmwan.cocktailcatalogue.main.extensions.*
 import com.bddrmwan.cocktailcatalogue.main.presentation.detail.adapter.TagsAdapter
 import com.bddrmwan.cocktailcatalogue.main.presentation.detail.viewmodel.DetailViewModel
 import com.google.android.flexbox.FlexDirection
@@ -52,11 +50,13 @@ class DetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        cocktail?.instructions?.let {
-            setupView(cocktail)
-        } ?: run {
-            cocktail?.id?.let { id -> detailViewModel.getDetailCocktail(id) }
-        }
+//        cocktail?.instructions?.let {
+//            setupView(cocktail)
+//        } ?: run {
+//            cocktail?.id?.let { id -> detailViewModel.getDetailCocktail(id) }
+//        }
+
+        cocktail?.id?.let { id -> detailViewModel.getDetailCocktail(id) }
 
         initListener()
         initSubscribeLiveData()
@@ -66,12 +66,33 @@ class DetailFragment : Fragment() {
         binding.apply {
             btnBookmark.setOnClickListener {
                 if (isBookmark) {
-                    btnBookmark.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_bookmark_outline))
+                    cocktail?.let { it1 -> detailViewModel.deleteFromBookmark(it1) }
+                    toast("DELETE BOOKMARK")
                 } else {
-                    btnBookmark.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_bookmark))
+                    cocktail?.let { it1 -> detailViewModel.addToBookmark(it1) }
+                    toast("ADD BOOKMARK")
                 }
-                isBookmark = !isBookmark
+                setBookmarkView(!isBookmark)
             }
+        }
+    }
+
+    private fun setBookmarkView(isBookmarked: Boolean) {
+        isBookmark = isBookmarked
+        if (isBookmarked) {
+            binding.btnBookmark.setImageDrawable(
+                ContextCompat.getDrawable(
+                    requireContext(),
+                    R.drawable.ic_bookmark
+                )
+            )
+        } else {
+            binding.btnBookmark.setImageDrawable(
+                ContextCompat.getDrawable(
+                    requireContext(),
+                    R.drawable.ic_bookmark_outline
+                )
+            )
         }
     }
 
@@ -88,13 +109,15 @@ class DetailFragment : Fragment() {
             tvInstruction.text = detail?.instructions
 
             detail?.ingredient?.let {
+                binding.containerIngredient.removeAllViews()
                 it.forEachIndexed { index, ingredient ->
                     val inflater = LayoutInflater.from(requireContext())
-                    val inflaterBinding =ContainerIngredientViewBinding.inflate(inflater, null ,false)
+                    val inflaterBinding =
+                        ContainerIngredientViewBinding.inflate(inflater, null, false)
                     binding.containerIngredient.addView(inflaterBinding.root)
                     inflaterBinding.tvName.text = ingredient.name
                     inflaterBinding.tvMeasure.text = ingredient.measure
-                    if (index+1 == detail.ingredient.size) inflaterBinding.dividerLine.gone()
+                    if (index + 1 == detail.ingredient.size) inflaterBinding.dividerLine.gone()
                 }
             }
 
@@ -117,7 +140,9 @@ class DetailFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 detailViewModel.detailCocktail.collect {
+                    cocktail = it
                     setupView(it)
+                    setBookmarkView(it.isBookmark)
                 }
             }
         }
