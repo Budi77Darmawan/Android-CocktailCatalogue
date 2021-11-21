@@ -38,11 +38,11 @@ class MainNavigationActivity : AppCompatActivity() {
             handleBottomNav()
             isRootNavigation = when (destination.id) {
                 R.id.homeFragment, R.id.bookmarkFragment -> {
-                    binding.bottomNav.visible()
+                    showBottomNav()
                     true
                 }
                 else -> {
-                    binding.bottomNav.gone()
+                    hideBottomNav()
                     false
                 }
             }

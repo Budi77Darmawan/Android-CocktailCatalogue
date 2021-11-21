@@ -1,8 +1,8 @@
 package com.bddrmwan.cocktailcatalogue.main.presentation.detail.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.bddrmwan.cocktailcatalogue.main.core.datasource.Resource
 import com.bddrmwan.cocktailcatalogue.main.core.model.Cocktail
 import com.bddrmwan.cocktailcatalogue.main.presentation.detail.usecase.IDetailUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,22 +15,22 @@ class DetailViewModel @Inject constructor(
     private val detailUseCase: IDetailUseCase
 ): ViewModel() {
 
-    private var _detailCocktail = MutableSharedFlow<Cocktail>()
+    private var _detailCocktail = MutableSharedFlow<Resource<Cocktail>>()
     val detailCocktail get() = _detailCocktail.asSharedFlow()
 
     fun getDetailCocktail(id: String) {
         viewModelScope.launch {
             detailUseCase.getDetailCocktail(id)
                 .onStart {
-                    Log.d("DETAIL_SOURCE", "- LOCAL")
+                    _detailCocktail.emit(Resource.Loading())
                 }
                 .catch {
-                    Log.d("DETAIL_SOURCE", it.localizedMessage ?: "")
-
+                    val msg = it.localizedMessage ?: "Internal server error"
+                    _detailCocktail.emit(Resource.Error(msg))
                 }
                 .collect {
                     it?.let { cocktail ->
-                        _detailCocktail.emit(cocktail)
+                        _detailCocktail.emit(Resource.Success(cocktail))
                     }
                 }
         }

@@ -15,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import com.bddrmwan.cocktailcatalogue.R
 import com.bddrmwan.cocktailcatalogue.databinding.ContainerIngredientViewBinding
 import com.bddrmwan.cocktailcatalogue.databinding.FragmentDetailBinding
+import com.bddrmwan.cocktailcatalogue.main.core.datasource.Resource
 import com.bddrmwan.cocktailcatalogue.main.core.model.Cocktail
 import com.bddrmwan.cocktailcatalogue.main.extensions.*
 import com.bddrmwan.cocktailcatalogue.main.main.MainNavigationActivity
@@ -64,6 +65,8 @@ class DetailFragment : Fragment() {
         (activity as? MainNavigationActivity)?.apply {
             setSupportActionBar(binding.toolbar)
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
+            val colorWhite = ContextCompat.getColor(this, R.color.white);
+            binding.toolbar.navigationIcon?.setTint(colorWhite)
         }
     }
 
@@ -72,10 +75,10 @@ class DetailFragment : Fragment() {
             btnBookmark.setOnClickListener {
                 if (isBookmark) {
                     cocktail?.let { it1 -> detailViewModel.deleteFromBookmark(it1) }
-                    toast("DELETE BOOKMARK")
+                    showAttentionSnackBar(root, requireContext(), "cocktail was successfully removed from bookmarks")
                 } else {
                     cocktail?.let { it1 -> detailViewModel.addToBookmark(it1) }
-                    toast("ADD BOOKMARK")
+                    showSuccessSnackBar(root, requireContext(), "Cocktail successfully bookmarked")
                 }
                 setBookmarkView(!isBookmark)
             }
@@ -145,9 +148,21 @@ class DetailFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 detailViewModel.detailCocktail.collect {
-                    cocktail = it
-                    setupView(it)
-                    setBookmarkView(it.isBookmark)
+                    when (it) {
+                        is Resource.Loading -> {
+                            binding.progressCircular.visible()
+                        }
+                        is Resource.Success -> {
+                            binding.progressCircular.gone()
+                            cocktail = it.data
+                            setupView(it.data)
+                            setBookmarkView(it.data?.isBookmark ?: false)
+                        }
+                        is Resource.Error -> {
+                            binding.progressCircular.gone()
+                            showErrorSnackBar(binding.root, requireContext(), it.message)
+                        }
+                    }
                 }
             }
         }
