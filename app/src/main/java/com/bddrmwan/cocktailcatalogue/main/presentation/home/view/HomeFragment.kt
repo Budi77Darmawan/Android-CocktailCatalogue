@@ -195,6 +195,9 @@ class HomeFragment : Fragment() {
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
+                    val query = binding.searchBar.inputSearch.text.toString().trim()
+                    if (query.isNotEmpty() || selectedFilter != null) return
+
                     if (dy > 0) {
                         val layoutMgr = recyclerView.layoutManager as? GridLayoutManager
                         val itemCount = layoutMgr?.itemCount

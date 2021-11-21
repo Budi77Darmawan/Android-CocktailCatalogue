@@ -43,7 +43,7 @@ class HomeViewModel @Inject constructor(
                     .collect {
                         onRequest = false
                         stateLoading(false)
-                        letter.inc()
+                        letter++
                         it?.let { listCocktail ->
                             _listCocktail.value += listCocktail
                         } ?: run {
