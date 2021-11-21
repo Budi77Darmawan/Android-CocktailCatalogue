@@ -49,128 +49,23 @@ object DataMapper {
         return str?.split(",")
     }
 
-    private fun mappingIngredient(cocktail: CocktailEntity): List<Ingredient>? {
-        val ingredient: MutableList<Ingredient>? = null
-        cocktail.strIngredient1?.let {
-            ingredient?.add(
-                Ingredient(
-                    cocktail.strIngredient1,
-                    cocktail.strMeasure1
-                )
-            )
-            cocktail.strIngredient2?.let {
-                ingredient?.add(
-                    Ingredient(
-                        cocktail.strIngredient2,
-                        cocktail.strMeasure2
-                    )
-                )
-                cocktail.strIngredient3?.let {
-                    ingredient?.add(
-                        Ingredient(
-                            cocktail.strIngredient3,
-                            cocktail.strMeasure3
-                        )
-                    )
-                    cocktail.strIngredient4?.let {
-                        ingredient?.add(
-                            Ingredient(
-                                cocktail.strIngredient4,
-                                cocktail.strMeasure4
-                            )
-                        )
-                        cocktail.strIngredient5?.let {
-                            ingredient?.add(
-                                Ingredient(
-                                    cocktail.strIngredient5,
-                                    cocktail.strMeasure5
-                                )
-                            )
-                            cocktail.strIngredient6?.let {
-                                ingredient?.add(
-                                    Ingredient(
-                                        cocktail.strIngredient6,
-                                        cocktail.strMeasure6
-                                    )
-                                )
-                                cocktail.strIngredient7?.let {
-                                    ingredient?.add(
-                                        Ingredient(
-                                            cocktail.strIngredient7,
-                                            cocktail.strMeasure7
-                                        )
-                                    )
-                                    cocktail.strIngredient8?.let {
-                                        ingredient?.add(
-                                            Ingredient(
-                                                cocktail.strIngredient8,
-                                                cocktail.strMeasure8
-                                            )
-                                        )
-                                        cocktail.strIngredient9?.let {
-                                            ingredient?.add(
-                                                Ingredient(
-                                                    cocktail.strIngredient9,
-                                                    cocktail.strMeasure9
-                                                )
-                                            )
-                                            cocktail.strIngredient10?.let {
-                                                ingredient?.add(
-                                                    Ingredient(
-                                                        cocktail.strIngredient10,
-                                                        cocktail.strMeasure10
-                                                    )
-                                                )
-                                                cocktail.strIngredient11?.let {
-                                                    ingredient?.add(
-                                                        Ingredient(
-                                                            cocktail.strIngredient11,
-                                                            cocktail.strMeasure11
-                                                        )
-                                                    )
-                                                    cocktail.strIngredient12?.let {
-                                                        ingredient?.add(
-                                                            Ingredient(
-                                                                cocktail.strIngredient12,
-                                                                cocktail.strMeasure12
-                                                            )
-                                                        )
-                                                        cocktail.strIngredient13?.let {
-                                                            ingredient?.add(
-                                                                Ingredient(
-                                                                    cocktail.strIngredient13,
-                                                                    cocktail.strMeasure13
-                                                                )
-                                                            )
-                                                            cocktail.strIngredient14?.let {
-                                                                ingredient?.add(
-                                                                    Ingredient(
-                                                                        cocktail.strIngredient14,
-                                                                        cocktail.strMeasure14
-                                                                    )
-                                                                )
-                                                                cocktail.strIngredient15?.let {
-                                                                    ingredient?.add(
-                                                                        Ingredient(
-                                                                            cocktail.strIngredient15,
-                                                                            cocktail.strMeasure15
-                                                                        )
-                                                                    )
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return ingredient
+    private fun mappingIngredient(cocktail: CocktailEntity): List<Ingredient> {
+        val listIngredient = mutableListOf<Ingredient>()
+        listIngredient.add(Ingredient(cocktail.strIngredient1, cocktail.strMeasure1))
+        listIngredient.add(Ingredient(cocktail.strIngredient2, cocktail.strMeasure2))
+        listIngredient.add(Ingredient(cocktail.strIngredient3, cocktail.strMeasure3))
+        listIngredient.add(Ingredient(cocktail.strIngredient4, cocktail.strMeasure4))
+        listIngredient.add(Ingredient(cocktail.strIngredient5, cocktail.strMeasure5))
+        listIngredient.add(Ingredient(cocktail.strIngredient6, cocktail.strMeasure6))
+        listIngredient.add(Ingredient(cocktail.strIngredient7, cocktail.strMeasure7))
+        listIngredient.add(Ingredient(cocktail.strIngredient8, cocktail.strMeasure8))
+        listIngredient.add(Ingredient(cocktail.strIngredient9, cocktail.strMeasure9))
+        listIngredient.add(Ingredient(cocktail.strIngredient10, cocktail.strMeasure10))
+        listIngredient.add(Ingredient(cocktail.strIngredient11, cocktail.strMeasure11))
+        listIngredient.add(Ingredient(cocktail.strIngredient12, cocktail.strMeasure12))
+        listIngredient.add(Ingredient(cocktail.strIngredient13, cocktail.strMeasure13))
+        listIngredient.add(Ingredient(cocktail.strIngredient14, cocktail.strMeasure14))
+        listIngredient.add(Ingredient(cocktail.strIngredient15, cocktail.strMeasure15))
+        return listIngredient.filterNot { it.name == null || it.measure == null }
     }
 }

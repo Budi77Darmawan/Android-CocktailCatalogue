@@ -1,4 +1,4 @@
-package com.bddrmwan.cocktailcatalogue.main
+package com.bddrmwan.cocktailcatalogue.main.main
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

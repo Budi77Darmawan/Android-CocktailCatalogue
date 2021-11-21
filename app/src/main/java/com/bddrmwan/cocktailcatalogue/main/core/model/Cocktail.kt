@@ -18,6 +18,6 @@ data class Cocktail (
 
 @Parcelize
 data class Ingredient(
-    val name: String,
+    val name: String?,
     val measure: String? = "0"
 ): Parcelable
