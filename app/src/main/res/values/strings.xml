@@ -19,4 +19,5 @@
     <string name="tags">Tags :</string>
     <string name="no_tags">Tags :   -</string>
     <string name="colon">:</string>
+    <string name="bookmark">Bookmark</string>
 </resources>

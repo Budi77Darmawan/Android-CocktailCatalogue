@@ -8,4 +8,10 @@
         android:title="@string/home"
         app:showAsAction="always" />
 
+    <item
+        android:id="@+id/bookmarkFragment"
+        android:icon="@drawable/ic_bookmark"
+        android:title="@string/bookmark"
+        app:showAsAction="ifRoom" />
+
 </menu>
