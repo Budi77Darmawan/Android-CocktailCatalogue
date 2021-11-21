@@ -49,6 +49,14 @@ class MainNavigationActivity : AppCompatActivity() {
         }
     }
 
+    fun hideBottomNav() {
+        binding.bottomNav.gone()
+    }
+
+    fun showBottomNav() {
+        binding.bottomNav.visible()
+    }
+
     private fun handleBottomNav() {
         binding.bottomNav.menu.forEach {
             it.isEnabled = !it.isChecked

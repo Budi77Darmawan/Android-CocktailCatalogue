@@ -15,6 +15,9 @@ interface CocktailDao {
     @Query("SELECT * from cocktail ORDER BY name ASC")
     fun getAllCocktails(): Flow<List<Cocktail>?>
 
+    @Query("SELECT * from cocktail WHERE name LIKE :name")
+    fun searchCocktailsByName(name: String): Flow<List<Cocktail>?>
+
     @Query("SELECT * from cocktail WHERE id = :id")
     fun getDetailCocktail(id: String): Flow<List<Cocktail>?>
 }

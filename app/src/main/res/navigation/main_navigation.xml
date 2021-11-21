@@ -41,4 +41,13 @@
             android:defaultValue="@null" />
     </fragment>
 
+    <fragment
+        android:id="@+id/bookmarkFragment"
+        android:name="com.bddrmwan.cocktailcatalogue.main.presentation.bookmark.view.BookmarkFragment"
+        android:label="fragment_bookamrk"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_bookmarkFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
 </navigation>

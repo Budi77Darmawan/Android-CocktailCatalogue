@@ -10,9 +10,9 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bddrmwan.cocktailcatalogue.main.core.model.Cocktail
 import com.bddrmwan.cocktailcatalogue.main.core.model.FilterCocktail
 import com.bddrmwan.cocktailcatalogue.main.extensions.gone
-import com.bddrmwan.cocktailcatalogue.main.extensions.toast
 import com.bddrmwan.cocktailcatalogue.main.presentation.home.adapter.CocktailAdapter
 import com.bddrmwan.cocktailcatalogue.main.presentation.home.viewmodel.HomeViewModel
 import com.bddrmwan.cocktailcatalogue.main.utils.Const
@@ -25,6 +25,10 @@ class HomeFragment : BaseGridFragment() {
     private val homeViewModel: HomeViewModel by viewModels()
     private var searchAdapter: CocktailAdapter? = null
     private var selectedFilter: FilterCocktail? = null
+
+    enum class StateAction {
+        DEFAULT, SEARCH, FILTER
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -150,14 +154,17 @@ class HomeFragment : BaseGridFragment() {
     }
 
     override fun actionCancelSearch() {
-        homeViewModel.stateSearchBar(false)
+        homeViewModel.stateActionShow(StateAction.DEFAULT)
     }
 
-    override fun querySearchIsEmpty() {
+    override fun searchQueryIsEmpty() {
         if (selectedFilter == null) {
-            homeViewModel.stateSearchBar(false)
+            homeViewModel.stateActionShow(StateAction.DEFAULT)
             binding.rvCocktail.adapter = cocktailAdapter
         }
+    }
+
+    override fun searchQueryChanged(query: String) {
     }
 
     override fun actionClickedFilter() {
@@ -165,5 +172,11 @@ class HomeFragment : BaseGridFragment() {
             HomeFragmentDirections.actionHomeFragmentToFilterBottomSheetDialog()
         navigateToFilter.selectedFilter = selectedFilter
         findNavController().navigate(navigateToFilter)
+    }
+
+    override fun navigateToDetail(cocktail: Cocktail?) {
+        val toDetail = HomeFragmentDirections.actionHomeFragmentToDetailFragment()
+        toDetail.detailCocktail = cocktail
+        findNavController().navigate(toDetail)
     }
 }

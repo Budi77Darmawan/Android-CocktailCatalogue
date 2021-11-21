@@ -10,6 +10,7 @@ import javax.inject.Inject
 interface IBookmarkRepository {
     fun addToBookmark(cocktail: Cocktail)
     fun deleteFromBookmark(cocktail: Cocktail)
+    fun searchCocktailsByName(name: String): Flow<List<Cocktail>?>
     fun getAllCocktails(): Flow<List<Cocktail>?>
     fun getDetailCocktail(id: String): Flow<Cocktail?>
 }
@@ -25,6 +26,10 @@ class BookmarkRepositoryImpl @Inject constructor(
     override fun deleteFromBookmark(cocktail: Cocktail) {
         localDataSource.deleteFromBookmark(cocktail)
     }
+
+    override fun searchCocktailsByName(name: String): Flow<List<Cocktail>?> =
+        localDataSource.searchCocktailByName(name)
+
 
     override fun getAllCocktails(): Flow<List<Cocktail>?> {
         return flow {

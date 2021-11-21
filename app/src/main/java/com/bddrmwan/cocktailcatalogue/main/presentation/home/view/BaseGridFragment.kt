@@ -1,5 +1,6 @@
 package com.bddrmwan.cocktailcatalogue.main.presentation.home.view
 
+import android.graphics.Rect
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,30 +8,31 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.core.widget.doAfterTextChanged
-import androidx.navigation.fragment.findNavController
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bddrmwan.cocktailcatalogue.R
 import com.bddrmwan.cocktailcatalogue.databinding.FragmentHomeBinding
 import com.bddrmwan.cocktailcatalogue.main.core.model.Cocktail
 import com.bddrmwan.cocktailcatalogue.main.extensions.*
+import com.bddrmwan.cocktailcatalogue.main.main.MainNavigationActivity
 import com.bddrmwan.cocktailcatalogue.main.presentation.home.adapter.CocktailAdapter
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 abstract class BaseGridFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     protected val binding get() = _binding!!
 
+    private var onDebouncing: Job? = null
     protected var cocktailAdapter: CocktailAdapter? = null
 
     abstract fun actionSearch(query: String)
+    abstract fun searchQueryChanged(query: String)
     abstract fun actionCancelSearch()
-    abstract fun querySearchIsEmpty()
+    abstract fun searchQueryIsEmpty()
     abstract fun actionClickedFilter()
-
-    protected fun navigateToDetail(cocktail: Cocktail?) {
-        val toDetail = HomeFragmentDirections.actionHomeFragmentToDetailFragment()
-        toDetail.detailCocktail = cocktail
-        findNavController().navigate(toDetail)
-    }
+    abstract fun navigateToDetail(cocktail: Cocktail?)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,15 +47,37 @@ abstract class BaseGridFragment : Fragment() {
 
         initSearchBarView()
         initCocktailRecyclerView()
+        initObserver()
+    }
+
+    private fun initObserver() {
+        val root = binding.root
+        val parentAct = activity as? MainNavigationActivity
+        root.viewTreeObserver.addOnGlobalLayoutListener {
+            val rec = Rect()
+            root.getWindowVisibleDisplayFrame(rec)
+            val screenHeight = root.rootView.height
+            val keypadHeight = screenHeight - rec.bottom
+            if (keypadHeight > screenHeight * 0.15) parentAct?.hideBottomNav()
+            else parentAct?.showBottomNav()
+        }
     }
 
     private fun initSearchBarView() {
         binding.searchBar.apply {
             inputSearch.doAfterTextChanged {
+                onDebouncing?.cancel()
                 if (it?.isEmpty() == true) {
-                    querySearchIsEmpty()
+                    searchQueryIsEmpty()
                     iconCancelSearch.gone()
-                } else iconCancelSearch.visible()
+                } else {
+                    onDebouncing = lifecycleScope.launch {
+                        delay(500L)
+                        searchQueryChanged(inputSearch.text.toString().trim())
+                        onDebouncing?.cancel()
+                    }
+                    iconCancelSearch.visible()
+                }
             }
             inputSearch.setOnEditorActionListener { _, actionId, _ ->
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
@@ -113,6 +137,7 @@ abstract class BaseGridFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        onDebouncing?.cancel()
         _binding = null
     }
 }
