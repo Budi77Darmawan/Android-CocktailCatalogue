@@ -21,7 +21,7 @@ class HomeViewModel @Inject constructor(
     private var letter = 'a'
     private var onSearch = false
     private var onRequest = false
-    private var _onLoading = MutableSharedFlow<Boolean>()
+    private var _onLoading = MutableStateFlow(false)
 
     val listCocktail get() = _listCocktail
     val listCocktailByName get() = _listCocktailByName
@@ -43,7 +43,7 @@ class HomeViewModel @Inject constructor(
                     .collect {
                         onRequest = false
                         stateLoading(false)
-                        letter++
+                        letter.inc()
                         it?.let { listCocktail ->
                             _listCocktail.value += listCocktail
                         } ?: run {
@@ -66,19 +66,6 @@ class HomeViewModel @Inject constructor(
                 }
                 .collect {
                     stateLoading(false)
-                    /**
-                     * trick to trigger the listCocktailByName variable observer
-                     * if the values before and after are the same
-                     */
-                    if (listCocktailByName.value == it) {
-                        val temp = mutableListOf<Cocktail>()
-                        it?.let { temp.addAll(it) }
-                        temp.removeLast()
-                        _listCocktailByName.value = temp
-                    }
-                    /**
-                     * end
-                     */
                     _listCocktailByName.value = it
                 }
         }
@@ -102,6 +89,7 @@ class HomeViewModel @Inject constructor(
 
     fun stateSearchBar(onSearch: Boolean) {
         this.onSearch = onSearch
+        if (!onSearch) _listCocktailByName.value = null
     }
 
     private fun checkStateRequest(letter: Char): Boolean {
@@ -116,12 +104,14 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             if (visible) {
                 when {
-                    onSearch -> _onLoading.emit(visible)
+                    onSearch -> _onLoading.value = visible
                     onRequest -> {
-                        if (letter == 'a') _onLoading.emit(visible)
+                        if (letter.compareTo('a') == 0) {
+                            _onLoading.value = visible
+                        }
                     }
                 }
-            } else _onLoading.emit(visible)
+            } else _onLoading.value = visible
         }
     }
 }

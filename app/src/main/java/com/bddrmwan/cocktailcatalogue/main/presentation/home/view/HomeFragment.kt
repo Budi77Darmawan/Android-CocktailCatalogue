@@ -148,11 +148,11 @@ class HomeFragment : Fragment() {
                 } else false
             }
             iconCancelSearch.setOnClickListener {
-                homeViewModel.stateSearchBar(false)
-                binding.rvCocktail.adapter = cocktailAdapter
-                iconCancelSearch.gone()
                 inputSearch.text?.clear()
                 inputSearch.clearFocus()
+                iconCancelSearch.gone()
+                homeViewModel.stateSearchBar(false)
+                binding.rvCocktail.adapter = cocktailAdapter
                 hideKeyboard(it)
             }
             iconFilter.setOnClickListener {
