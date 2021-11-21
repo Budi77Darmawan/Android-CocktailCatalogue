@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -32,6 +33,7 @@ class DetailFragment : Fragment() {
 
     private val detailViewModel: DetailViewModel by viewModels()
     private var cocktail: Cocktail? = null
+    private var isBookmark = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,7 +58,21 @@ class DetailFragment : Fragment() {
             cocktail?.id?.let { id -> detailViewModel.getDetailCocktail(id) }
         }
 
+        initListener()
         initSubscribeLiveData()
+    }
+
+    private fun initListener() {
+        binding.apply {
+            btnBookmark.setOnClickListener {
+                if (isBookmark) {
+                    btnBookmark.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_bookmark_outline))
+                } else {
+                    btnBookmark.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_bookmark))
+                }
+                isBookmark = !isBookmark
+            }
+        }
     }
 
     private fun setupView(detail: Cocktail?) {

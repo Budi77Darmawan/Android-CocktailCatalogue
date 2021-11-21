@@ -1,5 +1,6 @@
 package com.bddrmwan.cocktailcatalogue.main.modules
 
+import com.bddrmwan.cocktailcatalogue.main.core.repository.BookmarkRepositoryImpl
 import com.bddrmwan.cocktailcatalogue.main.core.repository.CocktailByFilterRepositoryImpl
 import com.bddrmwan.cocktailcatalogue.main.core.repository.CocktailRepositoryImpl
 import com.bddrmwan.cocktailcatalogue.main.core.repository.FilterCocktailRepositoryImpl
@@ -39,9 +40,10 @@ object UseCaseModule {
     @Singleton
     @Provides
     fun provideDetailUseCase(
-        cocktailRepo: CocktailRepositoryImpl
+        cocktailRepo: CocktailRepositoryImpl,
+        bookmarkRepo: BookmarkRepositoryImpl
     ): IDetailUseCase {
-        return DetailUseCaseImpl(cocktailRepo)
+        return DetailUseCaseImpl(cocktailRepo, bookmarkRepo)
     }
 
 }

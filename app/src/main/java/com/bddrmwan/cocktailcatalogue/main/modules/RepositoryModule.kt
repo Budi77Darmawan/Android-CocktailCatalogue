@@ -37,4 +37,12 @@ object RepositoryModule {
     ): ICocktailByFilterRepository {
         return CocktailByFilterRepositoryImpl(remoteDataSource)
     }
+
+    @Singleton
+    @Provides
+    fun provideBookmarkRepository(
+        localDataSource: LocalDataSourceImpl
+    ): IBookmarkRepository {
+        return BookmarkRepositoryImpl(localDataSource)
+    }
 }

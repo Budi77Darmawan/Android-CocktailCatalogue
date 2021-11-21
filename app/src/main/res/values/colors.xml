@@ -2,6 +2,7 @@
 <resources>
     <color name="colorPrimary">#003A78</color>
     <color name="colorSecondary">#F9820C</color>
+    <color name="colorPink">#FF0077</color>
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>

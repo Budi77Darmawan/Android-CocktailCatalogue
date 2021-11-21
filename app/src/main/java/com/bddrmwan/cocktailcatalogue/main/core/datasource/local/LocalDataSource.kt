@@ -19,6 +19,16 @@ class LocalDataSourceImpl @Inject constructor(
         }
     }
 
+    fun deleteFromBookmark(cocktail: Cocktail) {
+        executorService.execute {
+            database.cocktailDao().deleteFromBookmark(cocktail)
+        }
+    }
+
+    fun getAllCocktails(): Flow<List<Cocktail>?> {
+        return database.cocktailDao().getAllCocktails()
+    }
+
     fun getDetailCocktail(id: String): Flow<List<Cocktail>?> {
         return database.cocktailDao().getDetailCocktail(id)
     }

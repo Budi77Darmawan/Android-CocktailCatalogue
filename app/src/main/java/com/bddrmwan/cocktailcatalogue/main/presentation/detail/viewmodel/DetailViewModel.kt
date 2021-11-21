@@ -36,4 +36,17 @@ class DetailViewModel @Inject constructor(
         }
     }
 
+    fun addToBookmark(cocktail: Cocktail) {
+        viewModelScope.launch {
+            detailUseCase.addToBookmark(cocktail)
+        }
+    }
+
+
+    fun deleteFromBookmark(cocktail: Cocktail) {
+        viewModelScope.launch {
+            detailUseCase.deleteFromBookmark(cocktail)
+        }
+    }
+
 }
