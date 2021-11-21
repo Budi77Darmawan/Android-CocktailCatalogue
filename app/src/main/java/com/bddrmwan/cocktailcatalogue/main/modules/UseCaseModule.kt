@@ -4,6 +4,8 @@ import com.bddrmwan.cocktailcatalogue.main.core.repository.BookmarkRepositoryImp
 import com.bddrmwan.cocktailcatalogue.main.core.repository.CocktailByFilterRepositoryImpl
 import com.bddrmwan.cocktailcatalogue.main.core.repository.CocktailRepositoryImpl
 import com.bddrmwan.cocktailcatalogue.main.core.repository.FilterCocktailRepositoryImpl
+import com.bddrmwan.cocktailcatalogue.main.presentation.bookmark.usecase.BookmarkUseCaseImpl
+import com.bddrmwan.cocktailcatalogue.main.presentation.bookmark.usecase.IBookmarkUseCase
 import com.bddrmwan.cocktailcatalogue.main.presentation.detail.usecase.DetailUseCaseImpl
 import com.bddrmwan.cocktailcatalogue.main.presentation.detail.usecase.IDetailUseCase
 import com.bddrmwan.cocktailcatalogue.main.presentation.home.usecase.FilterUseCaseImpl
@@ -44,6 +46,14 @@ object UseCaseModule {
         bookmarkRepo: BookmarkRepositoryImpl
     ): IDetailUseCase {
         return DetailUseCaseImpl(cocktailRepo, bookmarkRepo)
+    }
+
+    @Singleton
+    @Provides
+    fun provideBookmarkUseCase(
+        bookmarkRepo: BookmarkRepositoryImpl
+    ): IBookmarkUseCase {
+        return BookmarkUseCaseImpl(bookmarkRepo)
     }
 
 }

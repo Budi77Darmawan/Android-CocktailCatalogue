@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.bddrmwan.cocktailcatalogue.main.core.model.Cocktail
 import com.bddrmwan.cocktailcatalogue.main.core.model.FilterEnum
 import com.bddrmwan.cocktailcatalogue.main.presentation.home.usecase.IHomeUseCase
+import com.bddrmwan.cocktailcatalogue.main.presentation.home.view.HomeFragment
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -43,7 +44,7 @@ class HomeViewModel @Inject constructor(
                     .collect {
                         onRequest = false
                         stateLoading(false)
-                        letter.inc()
+                        letter++
                         it?.let { listCocktail ->
                             _listCocktail.value += listCocktail
                         } ?: run {
@@ -55,6 +56,7 @@ class HomeViewModel @Inject constructor(
     }
 
     fun searchCocktailByName(name: String) {
+        stateActionShow(HomeFragment.StateAction.SEARCH)
         onSearch = true
         viewModelScope.launch {
             homeUseCase.getCocktailByName(name)
@@ -72,6 +74,7 @@ class HomeViewModel @Inject constructor(
     }
 
     fun searchCocktailByFilter(filter: FilterEnum, category: String) {
+        stateActionShow(HomeFragment.StateAction.FILTER)
         viewModelScope.launch {
             homeUseCase.getCocktailByFilter(filter, category)
                 .onStart {
@@ -87,9 +90,22 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun stateSearchBar(onSearch: Boolean) {
-        this.onSearch = onSearch
-        if (!onSearch) _listCocktailByName.value = null
+    fun stateActionShow(state: HomeFragment.StateAction) {
+        when (state) {
+            HomeFragment.StateAction.DEFAULT -> {
+                this.onSearch = false
+                _listCocktailByName.value = null
+                _listCocktailByFilter.value = null
+            }
+            HomeFragment.StateAction.SEARCH -> {
+                this.onSearch = true
+                _listCocktailByFilter.value = null
+            }
+            HomeFragment.StateAction.FILTER -> {
+                this.onSearch = false
+                _listCocktailByName.value = null
+            }
+        }
     }
 
     private fun checkStateRequest(letter: Char): Boolean {

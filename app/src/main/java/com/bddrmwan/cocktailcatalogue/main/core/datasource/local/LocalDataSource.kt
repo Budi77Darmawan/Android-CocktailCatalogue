@@ -33,4 +33,9 @@ class LocalDataSourceImpl @Inject constructor(
     fun getDetailCocktail(id: String): Flow<List<Cocktail>?> {
         return database.cocktailDao().getDetailCocktail(id)
     }
+
+    fun searchCocktailByName(name: String): Flow<List<Cocktail>?> {
+        val nameStr = "%$name%"
+        return database.cocktailDao().searchCocktailsByName(nameStr)
+    }
 }

@@ -2,6 +2,7 @@
     <string name="app_name">CocktaiLog</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="internal_server_error">Internal server error</string>
     <string name="home">Home</string>
     <string name="cocktail_search">Search Cocktail</string>
     <string name="toast">Showing Toast!</string>
@@ -19,4 +20,6 @@
     <string name="tags">Tags :</string>
     <string name="no_tags">Tags :   -</string>
     <string name="colon">:</string>
+    <string name="bookmark">Bookmark</string>
+    <string name="bokkmar_is_empty">Bookmarked is empty</string>
 </resources>

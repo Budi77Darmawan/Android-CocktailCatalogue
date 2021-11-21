@@ -3,6 +3,7 @@ package com.bddrmwan.cocktailcatalogue.main.presentation.detail.view
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -10,11 +11,13 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import com.bddrmwan.cocktailcatalogue.R
 import com.bddrmwan.cocktailcatalogue.databinding.ContainerIngredientViewBinding
 import com.bddrmwan.cocktailcatalogue.databinding.FragmentDetailBinding
 import com.bddrmwan.cocktailcatalogue.main.core.model.Cocktail
 import com.bddrmwan.cocktailcatalogue.main.extensions.*
+import com.bddrmwan.cocktailcatalogue.main.main.MainNavigationActivity
 import com.bddrmwan.cocktailcatalogue.main.presentation.detail.adapter.TagsAdapter
 import com.bddrmwan.cocktailcatalogue.main.presentation.detail.viewmodel.DetailViewModel
 import com.google.android.flexbox.FlexDirection
@@ -50,16 +53,18 @@ class DetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        cocktail?.instructions?.let {
-//            setupView(cocktail)
-//        } ?: run {
-//            cocktail?.id?.let { id -> detailViewModel.getDetailCocktail(id) }
-//        }
-
         cocktail?.id?.let { id -> detailViewModel.getDetailCocktail(id) }
-
+        initToolbar()
         initListener()
         initSubscribeLiveData()
+    }
+
+    private fun initToolbar() {
+        setHasOptionsMenu(true)
+        (activity as? MainNavigationActivity)?.apply {
+            setSupportActionBar(binding.toolbar)
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        }
     }
 
     private fun initListener() {
@@ -145,6 +150,16 @@ class DetailFragment : Fragment() {
                     setBookmarkView(it.isBookmark)
                 }
             }
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                findNavController().popBackStack()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 

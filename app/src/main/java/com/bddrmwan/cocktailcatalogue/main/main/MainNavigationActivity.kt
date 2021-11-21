@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import androidx.core.view.forEach
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
 import com.bddrmwan.cocktailcatalogue.R
 import com.bddrmwan.cocktailcatalogue.databinding.ActivityMainNavigationBinding
 import com.bddrmwan.cocktailcatalogue.main.extensions.gone
@@ -27,13 +29,15 @@ class MainNavigationActivity : AppCompatActivity() {
 
     private fun initBottomNavigation() {
         val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.main_fragment) as NavHostFragment
-        val navController = navHostFragment.navController
-//        binding.bottomNav.setupWithNavController(navController)
+            supportFragmentManager.findFragmentById(R.id.main_fragment) as? NavHostFragment
+        val navController = navHostFragment?.navController
+        navController?.let { binding.bottomNav.setupWithNavController(navController) }
+        handleBottomNav()
 
-        navController.addOnDestinationChangedListener { _, destination, _ ->
+        navController?.addOnDestinationChangedListener { _, destination, _ ->
+            handleBottomNav()
             isRootNavigation = when (destination.id) {
-                R.id.homeFragment -> {
+                R.id.homeFragment, R.id.bookmarkFragment -> {
                     binding.bottomNav.visible()
                     true
                 }
@@ -42,6 +46,20 @@ class MainNavigationActivity : AppCompatActivity() {
                     false
                 }
             }
+        }
+    }
+
+    fun hideBottomNav() {
+        binding.bottomNav.gone()
+    }
+
+    fun showBottomNav() {
+        binding.bottomNav.visible()
+    }
+
+    private fun handleBottomNav() {
+        binding.bottomNav.menu.forEach {
+            it.isEnabled = !it.isChecked
         }
     }
 
