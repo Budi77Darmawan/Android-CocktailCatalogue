@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.bddrmwan.cocktailcatalogue.main.presentation.home.view.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_filterBottomSheetDialog"
+            app:destination="@id/filterBottomSheetDialog" />
+        <action
+            android:id="@+id/action_homeFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
+
+    <dialog
+        android:id="@+id/filterBottomSheetDialog"
+        android:name="com.bddrmwan.cocktailcatalogue.main.presentation.home.view.FilterBottomSheetDialog"
+        android:label="dialog_bottom_sheet_filter"
+        tools:layout="@layout/dialog_bottom_sheet_filter" >
+        <argument
+            android:name="selectedFilter"
+            app:argType="com.bddrmwan.cocktailcatalogue.main.core.model.FilterCocktail"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </dialog>
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.bddrmwan.cocktailcatalogue.main.presentation.detail.view.DetailFragment"
+        android:label="fragment_detail"
+        tools:layout="@layout/fragment_detail" >
+        <argument
+            android:name="detailCocktail"
+            app:argType="com.bddrmwan.cocktailcatalogue.main.core.model.Cocktail"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/bookmarkFragment"
+        android:name="com.bddrmwan.cocktailcatalogue.main.presentation.bookmark.view.BookmarkFragment"
+        android:label="fragment_bookamrk"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_bookmarkFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
+</navigation>

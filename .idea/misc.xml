@@ -1,5 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/andro/cocktail-catalogue/app/src/main/res/drawable-v24/bg_rounded_primary_button.xml" value="0.1796875" />
+        <entry key="..\:/Users/andro/cocktail-catalogue/app/src/main/res/drawable-v24/bg_unselected_rounded_blue_button.xml" value="0.1796875" />
+        <entry key="..\:/Users/andro/cocktail-catalogue/app/src/main/res/drawable-v24/ic_cancel_search.xml" value="0.1796875" />
+        <entry key="..\:/Users/andro/cocktail-catalogue/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1796875" />
+        <entry key="..\:/Users/andro/cocktail-catalogue/app/src/main/res/drawable/bg_rounded_primary_button.xml" value="0.1796875" />
+        <entry key="..\:/Users/andro/cocktail-catalogue/app/src/main/res/drawable/bg_search_bar.xml" value="0.1796875" />
+        <entry key="..\:/Users/andro/cocktail-catalogue/app/src/main/res/drawable/bg_selected_rounded_blue_button.xml" value="0.1796875" />
+        <entry key="..\:/Users/andro/cocktail-catalogue/app/src/main/res/drawable/bg_title_collapsing.xml" value="0.1796875" />
+        <entry key="..\:/Users/andro/cocktail-catalogue/app/src/main/res/drawable/bg_top_rounded_20dp.xml" value="0.1796875" />
+        <entry key="..\:/Users/andro/cocktail-catalogue/app/src/main/res/drawable/ic_back.xml" value="0.1796875" />
+        <entry key="..\:/Users/andro/cocktail-catalogue/app/src/main/res/drawable/ic_bookmark.xml" value="0.1796875" />
+        <entry key="..\:/Users/andro/cocktail-catalogue/app/src/main/res/drawable/ic_bookmark_d.xml" value="0.1796875" />
+        <entry key="..\:/Users/andro/cocktail-catalogue/app/src/main/res/drawable/ic_bookmark_outline.xml" value="0.1796875" />
+        <entry key="..\:/Users/andro/cocktail-catalogue/app/src/main/res/drawable/ic_cancel_search.xml" value="0.1796875" />
+        <entry key="..\:/Users/andro/cocktail-catalogue/app/src/main/res/drawable/ic_close_gray.xml" value="0.1796875" />
+        <entry key="..\:/Users/andro/cocktail-catalogue/app/src/main/res/drawable/ic_home.xml" value="0.1796875" />
+        <entry key="..\:/Users/andro/cocktail-catalogue/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1796875" />
+        <entry key="..\:/Users/andro/cocktail-catalogue/app/src/main/res/drawable/ic_profile.xml" value="0.1796875" />
+        <entry key="..\:/Users/andro/cocktail-catalogue/app/src/main/res/drawable/ic_search_black.xml" value="0.1796875" />
+        <entry key="..\:/Users/andro/cocktail-catalogue/app/src/main/res/layout/activity_main_navigation.xml" value="0.22" />
+        <entry key="..\:/Users/andro/cocktail-catalogue/app/src/main/res/layout/container_category_filter.xml" value="0.4466666666666667" />
+        <entry key="..\:/Users/andro/cocktail-catalogue/app/src/main/res/layout/container_cocktail_view.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/andro/cocktail-catalogue/app/src/main/res/layout/container_ingredient_view.xml" value="0.3438368860055607" />
+        <entry key="..\:/Users/andro/cocktail-catalogue/app/src/main/res/layout/dialog_bottom_sheet_filter.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/andro/cocktail-catalogue/app/src/main/res/layout/fragment_detail.xml" value="0.14666666666666667" />
+        <entry key="..\:/Users/andro/cocktail-catalogue/app/src/main/res/layout/fragment_home.xml" value="0.17454068241469817" />
+        <entry key="..\:/Users/andro/cocktail-catalogue/app/src/main/res/layout/view_search_bar.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/andro/cocktail-catalogue/app/src/main/res/menu/bottom_menu.xml" value="0.16354166666666667" />
+        <entry key="..\:/Users/andro/cocktail-catalogue/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1796875" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
