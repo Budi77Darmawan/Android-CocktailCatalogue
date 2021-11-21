@@ -1,6 +1,6 @@
 package com.bddrmwan.cocktailcatalogue.main.core.repository
 
-import com.bddrmwan.cocktailcatalogue.main.core.datasource.RemoteDataSourceImpl
+import com.bddrmwan.cocktailcatalogue.main.core.datasource.remote.RemoteDataSourceImpl
 import com.bddrmwan.cocktailcatalogue.main.core.model.FilterCocktail
 import com.bddrmwan.cocktailcatalogue.main.core.model.FilterEnum
 import com.bddrmwan.cocktailcatalogue.main.utils.DataMapper
