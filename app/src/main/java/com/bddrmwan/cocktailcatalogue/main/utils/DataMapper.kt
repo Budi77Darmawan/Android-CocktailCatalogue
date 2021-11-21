@@ -1,7 +1,7 @@
 package com.bddrmwan.cocktailcatalogue.main.utils
 
-import com.bddrmwan.cocktailcatalogue.main.core.datasource.CocktailEntity
-import com.bddrmwan.cocktailcatalogue.main.core.datasource.ResultCocktailEntity
+import com.bddrmwan.cocktailcatalogue.main.core.datasource.remote.CocktailEntity
+import com.bddrmwan.cocktailcatalogue.main.core.datasource.remote.ResultCocktailEntity
 import com.bddrmwan.cocktailcatalogue.main.core.model.Cocktail
 import com.bddrmwan.cocktailcatalogue.main.core.model.FilterCocktail
 import com.bddrmwan.cocktailcatalogue.main.core.model.FilterEnum

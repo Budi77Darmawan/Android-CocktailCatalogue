@@ -1,6 +1,6 @@
 package com.bddrmwan.cocktailcatalogue.main.core.services
 
-import com.bddrmwan.cocktailcatalogue.main.core.datasource.ResultCocktailEntity
+import com.bddrmwan.cocktailcatalogue.main.core.datasource.remote.ResultCocktailEntity
 import retrofit2.http.GET
 import retrofit2.http.Query
 

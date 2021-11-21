@@ -1,4 +1,4 @@
-package com.bddrmwan.cocktailcatalogue.main.core.datasource
+package com.bddrmwan.cocktailcatalogue.main.core.datasource.remote
 
 import com.bddrmwan.cocktailcatalogue.main.core.model.FilterEnum
 import com.bddrmwan.cocktailcatalogue.main.core.services.CocktailServices

@@ -1,5 +1,6 @@
 package com.bddrmwan.cocktailcatalogue.main.presentation.detail.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bddrmwan.cocktailcatalogue.main.core.model.Cocktail
@@ -20,13 +21,31 @@ class DetailViewModel @Inject constructor(
     fun getDetailCocktail(id: String) {
         viewModelScope.launch {
             detailUseCase.getDetailCocktail(id)
-                .onStart {  }
-                .catch {  }
+                .onStart {
+                    Log.d("DETAIL_SOURCE", "- LOCAL")
+                }
+                .catch {
+                    Log.d("DETAIL_SOURCE", it.localizedMessage ?: "")
+
+                }
                 .collect {
                     it?.let { cocktail ->
                         _detailCocktail.emit(cocktail)
                     }
                 }
+        }
+    }
+
+    fun addToBookmark(cocktail: Cocktail) {
+        viewModelScope.launch {
+            detailUseCase.addToBookmark(cocktail)
+        }
+    }
+
+
+    fun deleteFromBookmark(cocktail: Cocktail) {
+        viewModelScope.launch {
+            detailUseCase.deleteFromBookmark(cocktail)
         }
     }
 

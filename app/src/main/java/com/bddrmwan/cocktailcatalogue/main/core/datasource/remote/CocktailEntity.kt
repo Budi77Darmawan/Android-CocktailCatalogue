@@ -1,4 +1,4 @@
-package com.bddrmwan.cocktailcatalogue.main.core.datasource
+package com.bddrmwan.cocktailcatalogue.main.core.datasource.remote
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
@@ -10,7 +10,7 @@ data class ResultCocktailEntity(
 
 @Parcelize
 data class CocktailEntity(
-    val idDrink: String?,
+    val idDrink: String,
     val strDrink: String?,
     val strTags: String?,
     val strCategory: String?,

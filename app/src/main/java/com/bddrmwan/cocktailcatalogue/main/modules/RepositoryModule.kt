@@ -1,6 +1,7 @@
 package com.bddrmwan.cocktailcatalogue.main.modules
 
-import com.bddrmwan.cocktailcatalogue.main.core.datasource.RemoteDataSourceImpl
+import com.bddrmwan.cocktailcatalogue.main.core.datasource.local.LocalDataSourceImpl
+import com.bddrmwan.cocktailcatalogue.main.core.datasource.remote.RemoteDataSourceImpl
 import com.bddrmwan.cocktailcatalogue.main.core.repository.*
 import dagger.Module
 import dagger.Provides
@@ -35,5 +36,13 @@ object RepositoryModule {
         remoteDataSource: RemoteDataSourceImpl
     ): ICocktailByFilterRepository {
         return CocktailByFilterRepositoryImpl(remoteDataSource)
+    }
+
+    @Singleton
+    @Provides
+    fun provideBookmarkRepository(
+        localDataSource: LocalDataSourceImpl
+    ): IBookmarkRepository {
+        return BookmarkRepositoryImpl(localDataSource)
     }
 }

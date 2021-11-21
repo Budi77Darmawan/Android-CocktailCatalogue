@@ -1,6 +1,6 @@
 package com.bddrmwan.cocktailcatalogue.main.core.repository
 
-import com.bddrmwan.cocktailcatalogue.main.core.datasource.RemoteDataSourceImpl
+import com.bddrmwan.cocktailcatalogue.main.core.datasource.remote.RemoteDataSourceImpl
 import com.bddrmwan.cocktailcatalogue.main.core.model.Cocktail
 import com.bddrmwan.cocktailcatalogue.main.utils.DataMapper
 import kotlinx.coroutines.flow.Flow
@@ -38,8 +38,10 @@ class CocktailRepositoryImpl @Inject constructor(
     override fun getDetailCocktail(id: String): Flow<Cocktail?> {
         return flow {
             val result = remoteDataSource.getDetailCocktail(id)
-            result.collect {
-                emit(DataMapper.mappingResultCocktailToListCocktail(it)?.getOrNull(0))
+            result.collect { remoteData ->
+                val data =
+                    DataMapper.mappingResultCocktailToListCocktail(remoteData)?.getOrNull(0)
+                emit(data)
             }
         }
     }

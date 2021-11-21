@@ -7,6 +7,7 @@
     tools:context=".main.presentation.detail.view.DetailFragment">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="280dp"
         android:fitsSystemWindows="true"
@@ -26,6 +27,12 @@
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
                 tools:ignore="ContentDescription" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_gravity="bottom"
+                android:background="@drawable/bg_title_collapsing" />
 
             <androidx.appcompat.widget.Toolbar
                 android:layout_width="match_parent"
@@ -145,6 +152,19 @@
                 tools:itemCount="3" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_bookmark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="25dp"
+        android:src="@drawable/ic_bookmark_outline"
+        app:backgroundTint="@color/white"
+        app:layout_anchor="@id/app_bar"
+        app:layout_anchorGravity="bottom|end"
+        app:maxImageSize="26dp"
+        app:tint="@color/colorPink"
+        tools:ignore="ContentDescription" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
