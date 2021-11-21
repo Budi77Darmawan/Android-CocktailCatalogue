@@ -9,10 +9,18 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.bddrmwan.cocktailcatalogue.R
+import com.bddrmwan.cocktailcatalogue.databinding.ContainerIngredientViewBinding
 import com.bddrmwan.cocktailcatalogue.databinding.FragmentDetailBinding
 import com.bddrmwan.cocktailcatalogue.main.core.model.Cocktail
-import com.bddrmwan.cocktailcatalogue.main.extensions.toast
+import com.bddrmwan.cocktailcatalogue.main.extensions.getProgressDrawable
+import com.bddrmwan.cocktailcatalogue.main.extensions.gone
+import com.bddrmwan.cocktailcatalogue.main.extensions.loadImage
+import com.bddrmwan.cocktailcatalogue.main.presentation.detail.adapter.TagsAdapter
 import com.bddrmwan.cocktailcatalogue.main.presentation.detail.viewmodel.DetailViewModel
+import com.google.android.flexbox.FlexDirection
+import com.google.android.flexbox.FlexboxLayoutManager
+import com.google.android.flexbox.JustifyContent
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -52,14 +60,47 @@ class DetailFragment : Fragment() {
     }
 
     private fun setupView(detail: Cocktail?) {
-        binding.text.text = detail?.instructions
+        binding.apply {
+            toolbarLayout.title = detail?.name
+            toolbarLayout.setExpandedTitleTextAppearance(R.style.ExpandedAppBar)
+            toolbarLayout.setCollapsedTitleTextAppearance(R.style.CollapsedAppBar)
+
+            imgCocktail.loadImage(
+                detail?.image,
+                getProgressDrawable(requireContext())
+            )
+            tvInstruction.text = detail?.instructions
+
+            detail?.ingredient?.let {
+                it.forEachIndexed { index, ingredient ->
+                    val inflater = LayoutInflater.from(requireContext())
+                    val inflaterBinding =ContainerIngredientViewBinding.inflate(inflater, null ,false)
+                    binding.containerIngredient.addView(inflaterBinding.root)
+                    inflaterBinding.tvName.text = ingredient.name
+                    inflaterBinding.tvMeasure.text = ingredient.measure
+                    if (index+1 == detail.ingredient.size) inflaterBinding.dividerLine.gone()
+                }
+            }
+
+            detail?.tags?.let {
+                val adapterView = TagsAdapter()
+                adapterView.setData(it)
+                val layoutManagerAdapter = FlexboxLayoutManager(requireContext(), FlexDirection.ROW)
+                layoutManagerAdapter.justifyContent = JustifyContent.FLEX_START
+                binding.rvTags.apply {
+                    adapter = adapterView
+                    layoutManager = layoutManagerAdapter
+                }
+            } ?: run {
+                binding.textViewTags.text = getString(R.string.no_tags)
+            }
+        }
     }
 
     private fun initSubscribeLiveData() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 detailViewModel.detailCocktail.collect {
-                    toast("on Fetching Data")
                     setupView(it)
                 }
             }
