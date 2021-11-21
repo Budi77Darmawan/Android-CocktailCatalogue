@@ -55,6 +55,7 @@ class HomeViewModel @Inject constructor(
     }
 
     fun searchCocktailByName(name: String) {
+        stateSearchBar(true)
         onSearch = true
         viewModelScope.launch {
             homeUseCase.getCocktailByName(name)
@@ -72,6 +73,7 @@ class HomeViewModel @Inject constructor(
     }
 
     fun searchCocktailByFilter(filter: FilterEnum, category: String) {
+        stateSearchBar(false)
         viewModelScope.launch {
             homeUseCase.getCocktailByFilter(filter, category)
                 .onStart {
@@ -90,6 +92,7 @@ class HomeViewModel @Inject constructor(
     fun stateSearchBar(onSearch: Boolean) {
         this.onSearch = onSearch
         if (!onSearch) _listCocktailByName.value = null
+        else _listCocktailByFilter.value = null
     }
 
     private fun checkStateRequest(letter: Char): Boolean {
