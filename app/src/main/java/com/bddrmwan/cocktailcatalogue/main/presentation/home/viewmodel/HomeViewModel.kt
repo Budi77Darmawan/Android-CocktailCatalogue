@@ -56,8 +56,6 @@ class HomeViewModel @Inject constructor(
     }
 
     fun searchCocktailByName(name: String) {
-        stateActionShow(HomeFragment.StateAction.SEARCH)
-        onSearch = true
         viewModelScope.launch {
             homeUseCase.getCocktailByName(name)
                 .onStart {
@@ -68,7 +66,7 @@ class HomeViewModel @Inject constructor(
                 }
                 .collect {
                     stateLoading(false)
-                    _listCocktailByName.value = it
+                    _listCocktailByName.value = it ?: listOf()
                 }
         }
     }
@@ -85,7 +83,7 @@ class HomeViewModel @Inject constructor(
                 }
                 .collect {
                     stateLoading(false)
-                    _listCocktailByFilter.value = it
+                    _listCocktailByFilter.value = it ?: listOf()
                 }
         }
     }

@@ -54,6 +54,7 @@ abstract class BaseGridFragment : Fragment() {
             inputSearch.doAfterTextChanged {
                 onDebouncing?.cancel()
                 if (it?.isEmpty() == true) {
+                    showErrorMessage(visible = false)
                     searchQueryIsEmpty()
                     iconCancelSearch.gone()
                 } else {
@@ -74,11 +75,12 @@ abstract class BaseGridFragment : Fragment() {
                 } else false
             }
             iconCancelSearch.setOnClickListener {
+                binding.rvCocktail.adapter = cocktailAdapter
                 inputSearch.text?.clear()
                 inputSearch.clearFocus()
                 iconCancelSearch.gone()
+                showErrorMessage(visible = false)
                 actionCancelSearch()
-                binding.rvCocktail.adapter = cocktailAdapter
                 hideKeyboard(it)
             }
             iconFilter.setOnClickListener {

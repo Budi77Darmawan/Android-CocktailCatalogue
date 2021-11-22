@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bddrmwan.cocktailcatalogue.main.core.model.Cocktail
 import com.bddrmwan.cocktailcatalogue.main.core.model.FilterCocktail
 import com.bddrmwan.cocktailcatalogue.main.extensions.gone
+import com.bddrmwan.cocktailcatalogue.main.extensions.visible
 import com.bddrmwan.cocktailcatalogue.main.presentation.home.adapter.CocktailAdapter
 import com.bddrmwan.cocktailcatalogue.main.presentation.home.viewmodel.HomeViewModel
 import com.bddrmwan.cocktailcatalogue.main.utils.Const
@@ -91,8 +92,10 @@ class HomeFragment : BaseGridFragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 homeViewModel.listCocktail.collect {
-                    cocktailAdapter?.setData(it)
-                    showErrorMessage(visible = false)
+                    if (it.isNotEmpty()) {
+                        cocktailAdapter?.setData(it)
+                        showErrorMessage(visible = false)
+                    }
                 }
             }
         }
@@ -108,8 +111,8 @@ class HomeFragment : BaseGridFragment() {
                             val message = "\"${query}\" not found!"
                             showErrorMessage(message)
                         } else {
-                            showErrorMessage(visible = false)
                             searchAdapter?.setData(it, selectedFilter)
+                            showErrorMessage(visible = false)
                         }
                     }
                 }
@@ -150,6 +153,7 @@ class HomeFragment : BaseGridFragment() {
 
     override fun actionSearch(query: String) {
         selectedFilter = null
+        homeViewModel.stateActionShow(StateAction.SEARCH)
         homeViewModel.searchCocktailByName(query)
     }
 
