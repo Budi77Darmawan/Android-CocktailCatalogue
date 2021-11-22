@@ -14,4 +14,10 @@
         android:title="@string/bookmark"
         app:showAsAction="ifRoom" />
 
+    <item
+        android:id="@+id/aboutFragment"
+        android:icon="@drawable/ic_about"
+        android:title="@string/about"
+        app:showAsAction="ifRoom" />
+
 </menu>

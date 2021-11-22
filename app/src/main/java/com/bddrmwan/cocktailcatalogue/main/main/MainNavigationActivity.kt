@@ -37,7 +37,7 @@ class MainNavigationActivity : AppCompatActivity() {
         navController?.addOnDestinationChangedListener { _, destination, _ ->
             handleBottomNav()
             isRootNavigation = when (destination.id) {
-                R.id.homeFragment, R.id.bookmarkFragment -> {
+                R.id.homeFragment, R.id.bookmarkFragment, R.id.aboutFragment -> {
                     showBottomNav()
                     true
                 }
@@ -49,11 +49,11 @@ class MainNavigationActivity : AppCompatActivity() {
         }
     }
 
-    fun hideBottomNav() {
+    private fun hideBottomNav() {
         binding.bottomNav.gone()
     }
 
-    fun showBottomNav() {
+    private fun showBottomNav() {
         binding.bottomNav.visible()
     }
 
