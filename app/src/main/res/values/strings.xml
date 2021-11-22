@@ -22,4 +22,6 @@
     <string name="colon">:</string>
     <string name="bookmark">Bookmark</string>
     <string name="bokkmar_is_empty">Bookmarked is empty</string>
+    <string name="about">About</string>
+    <string name="about_fragment">Aplikasi by Budi Darmawan</string>
 </resources>
